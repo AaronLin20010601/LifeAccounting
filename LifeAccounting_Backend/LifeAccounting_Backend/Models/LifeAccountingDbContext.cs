@@ -14,6 +14,8 @@ namespace LifeAccounting_Backend.Models
         public DbSet<Account> Accounts { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Record> Records { get; set; } = null!;
+        public DbSet<EmailLog> EmailLogs { get; set; }
+        public DbSet<ResetToken> ResetTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
