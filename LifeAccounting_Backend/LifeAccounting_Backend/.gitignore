@@ -1,0 +1,13 @@
+# .NET
+bin/
+obj/
+
+# Config files
+appsettings.*.json
+
+# User-specific files
+.vscode/
+.idea/
+
+# Logs
+*.log
