@@ -10,6 +10,7 @@ using LifeAccounting_Backend.Services.Interfaces.VerifyCode;
 using LifeAccounting_Backend.Services.Interfaces.Login;
 using LifeAccounting_Backend.Services.Interfaces.Register;
 using LifeAccounting_Backend.Services.Interfaces.Reset;
+using LifeAccounting_Backend.Services.Interfaces.Account;
 
 using LifeAccounting_Backend.Services.Implements.Email;
 using LifeAccounting_Backend.Services.Implements.Token;
@@ -17,6 +18,7 @@ using LifeAccounting_Backend.Services.Implements.VerifyCode;
 using LifeAccounting_Backend.Services.Implements.Login;
 using LifeAccounting_Backend.Services.Implements.Register;
 using LifeAccounting_Backend.Services.Implements.Reset;
+using LifeAccounting_Backend.Services.Implements.Account;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,13 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 
 // Reset Service
 builder.Services.AddScoped<IResetPasswordService, ResetPasswordService>();
+
+// Account Service
+builder.Services.AddScoped<IGetAccountsService, GetAccountsService>();
+builder.Services.AddScoped<ICreateAccountService, CreateAccountService>();
+builder.Services.AddScoped<IGetEditAccountService, GetEditAccountService>();
+builder.Services.AddScoped<IEditAccountService, EditAccountService>();
+builder.Services.AddScoped<IDeleteAccountService, DeleteAccountService>();
 
 // •[§J JWT ≈Á√“
 builder.Services.AddAuthentication("Bearer")

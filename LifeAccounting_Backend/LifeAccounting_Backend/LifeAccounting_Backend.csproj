@@ -18,4 +18,13 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\DTOs\Category\" />
+    <Folder Include="Models\DTOs\Record\" />
+    <Folder Include="Services\Implements\Category\" />
+    <Folder Include="Services\Implements\Record\" />
+    <Folder Include="Services\Interfaces\Category\" />
+    <Folder Include="Services\Interfaces\Record\" />
+  </ItemGroup>
+
 </Project>
