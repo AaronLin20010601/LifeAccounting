@@ -25,7 +25,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             // 驗證是否為該使用者的帳戶
             if (account.UserId != userId) 
             {
-                return (false, true, "You are not authorized to view this Account.", null);
+                return (false, true, "You are not authorized to view this account.", null);
             }
 
             // 將該帳戶轉換成可編輯的資料模型

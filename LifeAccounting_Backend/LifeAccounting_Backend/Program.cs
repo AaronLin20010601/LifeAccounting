@@ -11,6 +11,8 @@ using LifeAccounting_Backend.Services.Interfaces.Login;
 using LifeAccounting_Backend.Services.Interfaces.Register;
 using LifeAccounting_Backend.Services.Interfaces.Reset;
 using LifeAccounting_Backend.Services.Interfaces.Account;
+using LifeAccounting_Backend.Services.Interfaces.Category;
+using LifeAccounting_Backend.Services.Interfaces.Record;
 
 using LifeAccounting_Backend.Services.Implements.Email;
 using LifeAccounting_Backend.Services.Implements.Token;
@@ -19,6 +21,9 @@ using LifeAccounting_Backend.Services.Implements.Login;
 using LifeAccounting_Backend.Services.Implements.Register;
 using LifeAccounting_Backend.Services.Implements.Reset;
 using LifeAccounting_Backend.Services.Implements.Account;
+using LifeAccounting_Backend.Services.Implements.Category;
+using LifeAccounting_Backend.Services.Implements.Record;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +63,13 @@ builder.Services.AddScoped<ICreateAccountService, CreateAccountService>();
 builder.Services.AddScoped<IGetEditAccountService, GetEditAccountService>();
 builder.Services.AddScoped<IEditAccountService, EditAccountService>();
 builder.Services.AddScoped<IDeleteAccountService, DeleteAccountService>();
+
+// Category Service
+builder.Services.AddScoped<IGetCategoriesService, GetCategoriesService>();
+builder.Services.AddScoped<ICreateCategoryService, CreateCategoryService>();
+builder.Services.AddScoped<IGetEditCategoryService, GetEditCategoryService>();
+builder.Services.AddScoped<IEditCategoryService, EditCategoryService>();
+builder.Services.AddScoped<IDeleteCategoryService, DeleteCategoryService>();
 
 // •[§J JWT ≈Á√“
 builder.Services.AddAuthentication("Bearer")
