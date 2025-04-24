@@ -5,11 +5,11 @@ using LifeAccounting_Backend.Services.Interfaces.Record;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {
-    public class GetRecordService : IGetRecordsService
+    public class GetRecordsService : IGetRecordsService
     {
         private readonly LifeAccountingDbContext _context;
 
-        public GetRecordService(LifeAccountingDbContext context)
+        public GetRecordsService(LifeAccountingDbContext context)
         {
             _context = context;
         }

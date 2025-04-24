@@ -71,6 +71,15 @@ builder.Services.AddScoped<IGetEditCategoryService, GetEditCategoryService>();
 builder.Services.AddScoped<IEditCategoryService, EditCategoryService>();
 builder.Services.AddScoped<IDeleteCategoryService, DeleteCategoryService>();
 
+// Record Service
+builder.Services.AddScoped<IRecordMetaService, RecordMetaService>();
+builder.Services.AddScoped<IGetRecordsService, GetRecordsService>();
+builder.Services.AddScoped<ICreateRecordService, CreateRecordService>();
+builder.Services.AddScoped<IGetEditRecordService, GetEditRecordService>();
+builder.Services.AddScoped<IEditRecordService, EditRecordService>();
+builder.Services.AddScoped<IDeleteRecordService, DeleteRecordService>();
+
+
 // ¥[¤J JWT ÅçÃÒ
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer("Bearer", options =>
