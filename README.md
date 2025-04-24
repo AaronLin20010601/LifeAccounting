@@ -47,10 +47,10 @@ PostgreSQL on cloud database Supabase
 -----
 ## Project setup and compile on development
 For backend part:  
-1. Create a visual studio 2022 .net core web api project in Todolist folder.
+1. Create a visual studio 2022 .net core web api project in LifeAccounting folder.
 2. When need to compile and test via cmd, enter the following commands:  
 ```sh
-cd Todolist/Todolist_Backend/Todolist_Backend
+cd LifeAccounting/LifeAccounting_Backend/LifeAccounting_Backend
 ```  
 ```sh
 dotnet run
@@ -59,10 +59,10 @@ dotnet run
 For frontend part:  
 1. Create a new vue default project by the following commands and steps:  
 ```sh
-cd Todolist
+cd LifeAccounting
 ```  
 ```sh
-npm create vite@latest Todolist_Frontend
+npm create vite@latest LifeAccounting_Frontend
 ```  
 Select framework as vue, choose variant as Offical Vue Starter.  
 Select Router and ESLint.  
@@ -72,7 +72,7 @@ npm install
 
 3. When need to compile and test via cmd, enter the following commands:  
 ```sh
-cd Todolist/Todolist_Frontend
+cd LifeAccounting/LifeAccounting_Frontend
 ```  
 ```sh
 npm run dev
