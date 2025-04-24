@@ -54,9 +54,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             {
                 Id = r.Id,
                 AccountId = r.AccountId,
-                AccountName = r.Account.Name,
                 CategoryId = r.CategoryId,
-                CategoryName = r.Category.Name,
                 Amount = r.Amount,
                 Note = r.Note,
                 Date = r.Date,
