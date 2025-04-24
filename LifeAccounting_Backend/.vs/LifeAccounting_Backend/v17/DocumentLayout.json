@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\record\\getrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\record\\getrecordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,25 +27,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Program.cs",
-              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Program.cs",
-              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Program.cs",
-              "RelativeToolTip": "LifeAccounting_Backend\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAABMAAAAAAAAAA==",
+              "Title": "RecordController.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "RelativeToolTip": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-23T07:57:25.774Z",
+              "WhenOpened": "2025-04-24T02:23:25.526Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GetRecordService.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordService.cs",
+              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordService.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordService.cs",
+              "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-24T02:00:56.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "CategoryController.cs",
               "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\CategoryController.cs",
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Controllers\\CategoryController.cs",
               "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\CategoryController.cs",
               "RelativeToolTip": "LifeAccounting_Backend\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHAAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-23T07:42:58.558Z",
               "EditorCaption": ""
