@@ -9,7 +9,7 @@
             <LoginForm @success="handleSuccess" />
         </div>
     </div>
-  </template>
+</template>
 
 <script>
 import LoginForm from '@/components/LoginForm.vue'
@@ -17,10 +17,10 @@ import LoginForm from '@/components/LoginForm.vue'
 export default {
     components: { LoginForm },
     methods: {
-        // 登入成功後進入 Todo 首頁
+        // 登入成功後進入收支紀錄首頁
         handleSuccess({ token, user }) {
             this.$store.dispatch('login', { token, user })
-            this.$router.push('/todo')
+            this.$router.push('/record')
         }
     },
 };

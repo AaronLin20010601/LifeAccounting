@@ -18,6 +18,18 @@
                 <li v-if="!isLoggedIn">
                     <RouterLink to="/reset" class="hover:text-indigo-600 transition">Reset Password</RouterLink>
                 </li>
+                <!-- 收支紀錄首頁 -->
+                <li v-if="isLoggedIn">
+                    <RouterLink to="/record" class="hover:text-yellow-300" active-class="underline">Record</RouterLink>
+                </li>
+                <!-- 帳戶首頁 -->
+                <li v-if="isLoggedIn">
+                    <RouterLink to="/account" class="hover:text-yellow-300" active-class="underline">Account</RouterLink>
+                </li>
+                <!-- 收支類型首頁 -->
+                <li v-if="isLoggedIn">
+                    <RouterLink to="/category" class="hover:text-yellow-300" active-class="underline">Category</RouterLink>
+                </li>
                 <!-- 登出 -->
                 <li v-if="isLoggedIn">
                     <button @click="logout" class="hover:text-red-500 transition">Logout</button>
