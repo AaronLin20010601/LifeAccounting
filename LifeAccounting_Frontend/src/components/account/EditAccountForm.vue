@@ -75,7 +75,7 @@ export default {
         async onSubmit() {
             try {
                 // 更新成功
-                await updateAccountAccount(this.accountId, this.account)
+                await updateAccount(this.accountId, this.account)
                 alert('Account updated successfully!')
                 this.$emit('success')
             } catch (error) {

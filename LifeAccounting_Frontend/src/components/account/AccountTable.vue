@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- 新增帳戶-->
+        <!-- 新增帳戶 -->
         <div class="flex justify-end mb-4">
             <button @click="goToAddAccount" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
                 Add Account
