@@ -147,6 +147,10 @@ export default {
             let dateTime
             dateTime = new Date(this.record.date);
             this.record.date = dateTime.toISOString();
+
+            if (this.record.categoryId === ''){
+                this.record.categoryId = null;
+            }
             
             try {
                 await updateRecord(this.recordId, this.record);
