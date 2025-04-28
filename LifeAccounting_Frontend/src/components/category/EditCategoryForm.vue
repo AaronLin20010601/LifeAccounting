@@ -18,8 +18,8 @@
                     v-model="category.type" id="type" required
                     class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
                 >
-                    <option value="income">income</option>
-                    <option value="expense">expense</option>
+                    <option value="Income">Income</option>
+                    <option value="Expense">Expense</option>
                 </select>
             </div>
         </div>

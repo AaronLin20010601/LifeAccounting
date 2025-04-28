@@ -24,7 +24,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
 
             var categories = await _context.Categories
                 .Where(c => c.UserId == userId)
-                .Select(c => new OptionDTO { Id = c.Id, Name = c.Name })
+                .Select(c => new OptionDTO { Id = c.Id, Name = c.Name, Type = c.Type })
                 .ToListAsync();
 
             return (accounts, categories);

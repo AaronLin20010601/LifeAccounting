@@ -14,19 +14,22 @@ export const fetchRecordMeta = async () => {
 }
 
 // 取得收支紀錄列表
-export const fetchRecords = async ({accountId = null, categoryId = null, type, startDate = null, endDate = null, page, pageSize}) => {
+export const fetchRecords = async ({accountId = null, categoryId = null, type = null, startDate = null, endDate = null, page, pageSize}) => {
     const params = new URLSearchParams({
-        type,
         page,
         pageSize,
     });
 
-    if (accountId){
+    if (accountId) {
         params.append('accountId', accountId);
     }
 
-    if (categoryId){
+    if (categoryId) {
         params.append('categoryId', categoryId);
+    }
+
+    if (type) {
+        params.append('type', type)
     }
 
     if (startDate) {

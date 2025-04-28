@@ -29,7 +29,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
 
             // 篩選類型
             if (!string.IsNullOrEmpty(type))
-                query = query.Where(r => r.Type.ToLower() == type.ToLower());
+                query = query.Where(r => r.Type == type);
 
             // 篩選時間區間
             if (startDate.HasValue)
@@ -54,7 +54,9 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             {
                 Id = r.Id,
                 AccountId = r.AccountId,
+                AccountName = r.Account.Name,
                 CategoryId = r.CategoryId,
+                CategoryName = r.Category?.Name,
                 Amount = r.Amount,
                 Note = r.Note,
                 Date = r.Date,

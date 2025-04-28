@@ -29,7 +29,7 @@ export default {
         async getCategories() {
             try {
                 const data = await fetchCategories();
-                this.categories = data;
+                this.categories = data.items;
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Error fetching categories';
             }

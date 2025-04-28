@@ -29,7 +29,7 @@ export default {
         async getAccounts() {
             try {
                 const data = await fetchAccounts();
-                this.accounts = data;
+                this.accounts = data.items;
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Error fetching accounts';
             }
