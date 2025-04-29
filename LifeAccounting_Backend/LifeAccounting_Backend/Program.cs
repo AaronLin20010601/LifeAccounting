@@ -10,6 +10,7 @@ using LifeAccounting_Backend.Services.Interfaces.VerifyCode;
 using LifeAccounting_Backend.Services.Interfaces.Login;
 using LifeAccounting_Backend.Services.Interfaces.Register;
 using LifeAccounting_Backend.Services.Interfaces.Reset;
+using LifeAccounting_Backend.Services.Interfaces.Excel;
 using LifeAccounting_Backend.Services.Interfaces.Account;
 using LifeAccounting_Backend.Services.Interfaces.Category;
 using LifeAccounting_Backend.Services.Interfaces.Record;
@@ -20,6 +21,7 @@ using LifeAccounting_Backend.Services.Implements.VerifyCode;
 using LifeAccounting_Backend.Services.Implements.Login;
 using LifeAccounting_Backend.Services.Implements.Register;
 using LifeAccounting_Backend.Services.Implements.Reset;
+using LifeAccounting_Backend.Services.Implements.Excel;
 using LifeAccounting_Backend.Services.Implements.Account;
 using LifeAccounting_Backend.Services.Implements.Category;
 using LifeAccounting_Backend.Services.Implements.Record;
@@ -56,6 +58,9 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 
 // Reset Service
 builder.Services.AddScoped<IResetPasswordService, ResetPasswordService>();
+
+// Excel Service
+builder.Services.AddScoped<IRecordExportService, RecordExportService>();
 
 // Account Service
 builder.Services.AddScoped<IGetAccountsService, GetAccountsService>();

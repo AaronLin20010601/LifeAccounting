@@ -10,11 +10,11 @@
             <thead>
                 <tr class="border-b">
                     <th class="px-4 py-2 text-left w-[160px]">Account</th>
-                    <th class="px-4 py-2 text-left w-[100px]">Category</th>
-                    <th class="px-4 py-2 text-left w-[100px]">Amount</th>
-                    <th class="px-4 py-2 text-left w-[300px]">Note</th>
-                    <th class="px-4 py-2 text-left w-[160px]">Date</th>
-                    <th class="px-4 py-2 text-left w-[100px]">Type</th>
+                    <th class="px-4 py-2 text-left w-[120px]">Category</th>
+                    <th class="px-4 py-2 text-left w-[80px]">Amount</th>
+                    <th class="px-4 py-2 text-left w-[400px]">Note</th>
+                    <th class="px-4 py-2 text-left w-[120px]">Date</th>
+                    <th class="px-4 py-2 text-left w-[80px]">Type</th>
                     <th class="px-4 py-2 text-left">Actions</th>
                 </tr>
             </thead>

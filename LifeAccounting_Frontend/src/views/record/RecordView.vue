@@ -51,14 +51,6 @@ export default {
                     startDate : this.startDate, endDate : this.endDate,
                     page : this.page, pageSize : this.pageSize
                 });
-                console.log(data);
-                console.log({
-                    accountId: this.accountId,
-                    categoryId: this.categoryId,
-                    type: this.type,
-                    startDate: this.startDate,
-                    endDate: this.endDate
-                });
                 this.records = data.items;
 
                 this.totalPages = data.totalPages;

@@ -1,21 +1,21 @@
 <template>
     <div class="flex flex-wrap gap-4 items-center mb-6">
-        <!-- 帳戶選擇 -->
         <div class="flex flex-wrap gap-4 items-center">
+            <!-- 帳戶選擇 -->
             <label class="mr-2">Account:</label>
             <select v-model="selectedAccountId" @change="onFilterChange" class="p-2 border rounded-md">
                 <option :value="null">All</option>
                 <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
             </select>
     
-        <!-- 類別選擇 -->
+            <!-- 類別選擇 -->
             <label class="mr-2">Category:</label>
             <select v-model="selectedCategoryId" @change="onFilterChange" class="p-2 border rounded-md">
                 <option :value="null">All</option>
                 <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
             </select>
 
-        <!-- 收支類型 -->
+            <!-- 收支類型 -->
             <label class="mr-2">Type:</label>
             <select v-model="selectedType" :disabled="isTypeLocked" @change="onFilterChange" class="p-2 border rounded-md">
                 <option value="">All</option>
@@ -36,12 +36,18 @@
             <button @click="goToAddRecord" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
                 Add Record
             </button>
+
+            <button @click="downloadExcel" class="bg-cyan-500 text-white p-2 rounded-md hover:bg-cyan-600">
+                Download Record
+            </button>
         </div>
     </div>
 </template>
   
 <script>
 import { fetchRecordMeta } from '@/api/record';
+import { exportRecordsToExcel } from '@/api/excel';
+
 export default {
     emits: ['filter-change'],
     data() {
@@ -89,6 +95,32 @@ export default {
                 startDate: this.startDate,
                 endDate: this.endDate,
             });
+        },
+        // 下載 excel
+        async downloadExcel() {
+            try {
+                const data = await exportRecordsToExcel({
+                    accountId: this.selectedAccountId,
+                    categoryId: this.selectedCategoryId,
+                    type: this.selectedType,
+                    startDate: this.startDate,
+                    endDate: this.endDate
+                })
+
+                const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+                const url = window.URL.createObjectURL(blob)
+
+                const link = document.createElement('a')
+                link.href = url
+                link.setAttribute('download', `records_${new Date().toISOString().slice(0,19).replace(/[-T:]/g,"")}.xlsx`)
+                document.body.appendChild(link)
+                link.click()
+                link.remove()
+                window.URL.revokeObjectURL(url)
+            } catch (error) {
+                console.error(error)
+                alert('Excel download failed.')
+            }
         },
         // 前往新增紀錄
         goToAddRecord() {
