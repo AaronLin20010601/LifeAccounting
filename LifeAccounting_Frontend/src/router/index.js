@@ -3,6 +3,7 @@ import LoginView from '@/views/LoginView.vue' // 引入登入頁面
 import RegisterView from '../views/RegisterView.vue';  // 引入註冊頁面
 import ResetView from '../views/ResetView.vue'; // 引入重設密碼頁面
 import AccountView from '@/views/account/AccountView.vue'; // 引入帳戶頁面
+import TransferBalanceView from '@/views/account/TransferBalanceView.vue'; // 引入餘額轉移頁面
 import AddAccountView from '@/views/account/AddAccountView.vue'; // 引入新增帳戶頁面
 import EditAccountView from '@/views/account/EditAccountView.vue'; // 引入編輯帳戶頁面
 import CategoryView from '@/views/category/CategoryView.vue'; // 引入帳戶頁面
@@ -26,6 +27,7 @@ const routes = [
     { path: '/reset', name: 'reset', component: ResetView },
 
     { path: '/account', name: 'account', component: AccountView, beforeEnter: requireAuth },
+    { path: '/transfer', name: 'transfer', component: TransferBalanceView, beforeEnter: requireAuth },
     { path: '/addaccount', name: 'addaccount', component: AddAccountView, beforeEnter: requireAuth },
     { path: '/editaccount/:id', name: 'editaccount', component: EditAccountView, beforeEnter: requireAuth },
 

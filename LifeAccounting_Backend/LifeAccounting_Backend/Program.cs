@@ -64,6 +64,7 @@ builder.Services.AddScoped<IRecordExportService, RecordExportService>();
 
 // Account Service
 builder.Services.AddScoped<IGetAccountsService, GetAccountsService>();
+builder.Services.AddScoped<ITransferBalanceService, TransferBalanceService>();
 builder.Services.AddScoped<ICreateAccountService, CreateAccountService>();
 builder.Services.AddScoped<IGetEditAccountService, GetEditAccountService>();
 builder.Services.AddScoped<IEditAccountService, EditAccountService>();

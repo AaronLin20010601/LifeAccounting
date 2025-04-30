@@ -13,6 +13,12 @@ export const fetchAccounts = async() => {
     return response.data
 }
 
+// 帳戶餘額轉移
+export const transferBalance = async(form) => {
+    const response = await axios.patch(API_URL, form, getAuthHeaders())
+    return response.data
+}
+
 // 新增帳戶
 export const createAccount = async (account) => {
     try {

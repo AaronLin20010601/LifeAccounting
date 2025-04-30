@@ -10,19 +10,22 @@ namespace LifeAccounting_Backend.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IGetAccountsService _getAccountsService;
+        private readonly ITransferBalanceService _transferBalanceService;
         private readonly ICreateAccountService _createAccountService;
         private readonly IGetEditAccountService _getEditAccountService;
         private readonly IEditAccountService _editAccountService;
         private readonly IDeleteAccountService _deleteAccountService;
 
         public AccountController(
-            IGetAccountsService getAccountsService, 
+            IGetAccountsService getAccountsService,
+            ITransferBalanceService transferBalanceService,
             ICreateAccountService createAccountService, 
             IGetEditAccountService getEditAccountService,
             IEditAccountService editAccountService,
             IDeleteAccountService deleteAccountService) 
         { 
             _getAccountsService = getAccountsService;
+            _transferBalanceService = transferBalanceService;
             _createAccountService = createAccountService;
             _getEditAccountService = getEditAccountService;
             _editAccountService = editAccountService;
@@ -43,6 +46,27 @@ namespace LifeAccounting_Backend.Controllers
 
             var data = await _getAccountsService.GetAccountsAsync(userId);
             return Ok(data);
+        }
+
+        // 帳號餘額轉移
+        [Authorize]
+        [HttpPatch]
+        public async Task<IActionResult> TransferBalance([FromBody] TransferDTO model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return ModelStateErrorResponse();
+            }
+
+            // 確保有登入的用戶
+            var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0");
+            if (userId == 0)
+            {
+                return Unauthorized(new { Message = "User is not authenticated." });
+            }
+
+            var result = await _transferBalanceService.TransferBalanceAsync(userId, model);
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
 
         // 新增帳戶

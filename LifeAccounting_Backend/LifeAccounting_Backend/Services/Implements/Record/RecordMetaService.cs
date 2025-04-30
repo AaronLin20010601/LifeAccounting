@@ -19,7 +19,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
         {
             var accounts = await _context.Accounts
                 .Where(a => a.UserId == userId)
-                .Select(a => new OptionDTO { Id = a.Id, Name = a.Name })
+                .Select(a => new OptionDTO { Id = a.Id, Name = a.Name, Balance = a.Balance })
                 .ToListAsync();
 
             var categories = await _context.Categories

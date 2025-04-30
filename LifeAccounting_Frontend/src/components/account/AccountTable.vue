@@ -1,11 +1,17 @@
 <template>
     <div>
-        <!-- 新增帳戶 -->
-        <div class="flex justify-end mb-4">
+        <div class="flex justify-between">
+            <!-- 新增帳戶 -->
             <button @click="goToAddAccount" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
                 Add Account
             </button>
+
+            <!-- 新增帳戶 -->
+            <button @click="goToTransfer" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                Transfer Balance
+            </button>
         </div>
+
         <!-- 帳戶列表 當沒有任何帳戶時顯示 "No accounts found" -->
         <div v-if="accounts.length === 0" class="text-center text-gray-500 p-8 border border-gray-200 rounded-lg">
             No accounts found.
@@ -62,6 +68,10 @@ export default {
         // 格式化日期
         formatDate(date) {
             return new Date(date).toLocaleString();
+        },
+        // 前往轉移餘額
+        goToTransfer() {
+            this.$router.push('/transfer')
         },
         // 前往新增帳戶
         goToAddAccount() {
