@@ -24,6 +24,15 @@
                     <option value="EUR">EUR</option>
                 </select>
             </div>
+
+            <!-- 金額輸入 -->
+            <div>
+                <label for="balance" class="block text-sm font-medium text-gray-700">Balance</label>
+                <input 
+                    v-model.number="account.balance" type="number" step="0.01" id="balance" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md"
+                />
+            </div>
         </div>
 
         <!-- 錯誤消息顯示區域 -->
@@ -53,7 +62,8 @@ export default {
         return {
             account: {
                 name: '',
-                currency: 'TWD'
+                currency: 'TWD',
+                balance: null,
             },
             errorMessage: ''
         }
@@ -64,7 +74,8 @@ export default {
             const result = await getEditAccount(this.accountId)
             this.account = {
                 name: result.name,
-                currency: result.currency
+                currency: result.currency,
+                balance: result.balance,
             }
         } catch (error) {
             this.errorMessage = errorService.handleError(error) || 'Failed to fetch account data.'

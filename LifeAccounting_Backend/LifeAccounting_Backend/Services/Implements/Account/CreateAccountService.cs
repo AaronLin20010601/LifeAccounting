@@ -22,6 +22,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 UserId = userId,
                 Name = model.Name,
                 Currency = model.Currency,
+                Balance = model.Balance,
                 CreatedAt = DateTime.UtcNow
             };
 

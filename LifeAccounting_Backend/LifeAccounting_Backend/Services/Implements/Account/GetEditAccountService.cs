@@ -32,7 +32,8 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             var editAccountModel = new AccountEditDTO
             {
                 Name = account.Name,
-                Currency = account.Currency
+                Currency = account.Currency,
+                Balance = account.Balance,
             };
 
             return (true, false, "Success",  editAccountModel);

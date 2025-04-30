@@ -22,6 +22,10 @@
                 <li v-if="isLoggedIn">
                     <RouterLink to="/record" class="hover:text-yellow-300" active-class="underline">Record</RouterLink>
                 </li>
+                <!-- 統計圖表 -->
+                <li v-if="isLoggedIn">
+                    <RouterLink to="/chart" class="hover:text-yellow-300" active-class="underline">Chart</RouterLink>
+                </li>
                 <!-- 帳戶首頁 -->
                 <li v-if="isLoggedIn">
                     <RouterLink to="/account" class="hover:text-yellow-300" active-class="underline">Account</RouterLink>

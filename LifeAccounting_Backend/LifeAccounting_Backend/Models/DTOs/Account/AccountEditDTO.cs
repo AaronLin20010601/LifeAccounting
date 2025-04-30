@@ -11,5 +11,7 @@ namespace LifeAccounting_Backend.Models.DTOs.Account
         [Required(ErrorMessage = "Currency is required.")]
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Currency name must be between 1 and 10 characters.")]
         public string Currency { get; set; } = "TWD"; // 幣種
+        [Required(ErrorMessage = "Balance is required.")]
+        public decimal Balance { get; set; } // 餘額
     }
 }

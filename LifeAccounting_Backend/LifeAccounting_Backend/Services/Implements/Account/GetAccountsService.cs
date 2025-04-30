@@ -27,6 +27,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 Id = a.Id,
                 Name = a.Name,
                 Currency = a.Currency,
+                Balance = a.Balance,
                 CreatedAt = a.CreatedAt
             }).ToList();
 

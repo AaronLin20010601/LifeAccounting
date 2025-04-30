@@ -15,9 +15,10 @@
         <table v-else class="w-full table-auto">
             <thead>
                 <tr class="border-b">
-                    <th class="px-4 py-2 text-left w-[300px]">Name</th>
+                    <th class="px-4 py-2 text-left w-[150px]">Name</th>
                     <th class="px-4 py-2 text-left w-[150px]">Currency</th>
-                    <th class="px-4 py-2 text-left w-[200px]">Created At</th>
+                    <th class="px-4 py-2 text-left w-[150px]">Balance</th>
+                    <th class="px-4 py-2 text-left w-[180px]">Created At</th>
                     <th class="px-4 py-2 text-left">Actions</th>
                 </tr>
             </thead>
@@ -27,6 +28,8 @@
                     <td class="px-4 py-2">{{ account.name }}</td>
                     <!-- 帳戶幣別 -->
                     <td class="px-4 py-2">{{ account.currency }}</td>
+                    <!-- 帳戶餘額 -->
+                    <td class="px-4 py-2">{{ account.balance }}</td>
                     <!-- 建立時間 -->
                     <td class="px-4 py-2">{{ formatDate(account.createdAt) }}</td>
 

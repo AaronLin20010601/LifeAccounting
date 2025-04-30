@@ -32,6 +32,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             // 更新資料
             account.Name = model.Name;
             account.Currency = model.Currency;
+            account.Balance = model.Balance;
 
             await _context.SaveChangesAsync();
             return (true, false, "Account updated successfully.");

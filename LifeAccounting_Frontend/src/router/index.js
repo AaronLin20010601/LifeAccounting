@@ -11,6 +11,7 @@ import EditCategoryView from '@/views/category/EditCategoryView.vue'; // 引入�
 import RecordView from '@/views/record/RecordView.vue'; // 引入帳戶頁面
 import AddRecordView from '@/views/record/AddRecordView.vue'; // 引入新增帳戶頁面
 import EditRecordView from '@/views/record/EditRecordView.vue'; // 引入編輯帳戶頁面
+import ChartView from '@/views/ChartView.vue'; // 引入統計圖表頁面
 
 // 檢查是否存在 JWT Token
 const requireAuth = (to, from, next) => {
@@ -35,6 +36,8 @@ const routes = [
     { path: '/record', name: 'record', component: RecordView, beforeEnter: requireAuth },
     { path: '/addrecord', name: 'addrecord', component: AddRecordView, beforeEnter: requireAuth },
     { path: '/editrecord/:id', name: 'editrecord', component: EditRecordView, beforeEnter: requireAuth },
+
+    { path: '/chart', name: 'chart', component: ChartView, beforeEnter: requireAuth },
 ];
 
 const router = createRouter({
