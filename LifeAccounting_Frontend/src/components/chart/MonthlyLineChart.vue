@@ -2,21 +2,17 @@
     <div class="max-w-4xl mx-auto">
         <div class="flex gap-4 items-center mb-6">
             <!-- 年份選單 -->
-            <div>
-                <label class="mr-2">Year:</label>
-                <select v-model="selectedYear" @change="fetchChartData" class="p-2 border rounded">
-                    <option v-for="year in yearOptions" :key="year" :value="year">{{ year }}</option>
-                </select>
-            </div>
+            <label class="mr-2">Year:</label>
+            <select v-model="selectedYear" @change="fetchChartData" class="p-2 border rounded">
+                <option v-for="year in yearOptions" :key="year" :value="year">{{ year }}</option>
+            </select>
     
             <!-- 帳戶選單 -->
-            <div>
-                <label class="mr-2">Account:</label>
-                <select v-model="selectedAccountId" @change="fetchChartData" class="p-2 border rounded">
-                    <option :value="null">All</option>
-                    <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
-                </select>
-            </div>
+            <label class="mr-2">Account:</label>
+            <select v-model="selectedAccountId" @change="fetchChartData" class="p-2 border rounded">
+                <option :value="null">All</option>
+                <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
+            </select>
         </div>
     
         <!-- 圖表區域 -->
@@ -25,12 +21,12 @@
 </template>
   
 <script>
+import ApexCharts from 'vue3-apexcharts';
 import { fetchRecords } from '@/api/record';
 import { fetchMeta } from '@/api/meta';
-import ApexCharts from 'vue3-apexcharts';
+import { generateYearOptions } from '@/service/chartService';
   
 export default {
-    name: 'MonthlyLineChart',
     components: { apexchart: ApexCharts },
     data() {
         return {
@@ -75,18 +71,11 @@ export default {
         };
     },
     async mounted() {
-        this.generateYearOptions();
+        this.yearOptions = generateYearOptions();
         await this.fetchMetaData();
         await this.fetchChartData();
     },
     methods: {
-        // 可選年份
-        generateYearOptions() {
-            const currentYear = new Date().getFullYear();
-            for (let y = 2000; y <= currentYear; y++) {
-            this.yearOptions.unshift(y);
-            }
-        },
         async fetchMetaData() {
             const meta = await fetchMeta();
             this.accounts = meta.accounts;
@@ -107,6 +96,7 @@ export default {
                 pageSize: 1000,
             });
     
+            // 月收支折線圖
             for (const record of response.items) {
                 const date = new Date(record.date);
                 const monthIndex = date.getMonth();

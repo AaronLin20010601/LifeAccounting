@@ -21,26 +21,40 @@
   
 <script>
 import MonthlyLineChart from '@/components/chart/MonthlyLineChart.vue'
+import IncomeExpensePieChart from '@/components/chart/IncomeExpensePieChart.vue';
+import AccountDonutChart from '@/components/chart/AccountDonutChart.vue';
+import CategoryHeatmap from '@/components/chart/CategoryHeatmap.vue';
 
 export default {
     components: {
         MonthlyLineChart,
+        IncomeExpensePieChart,
+        AccountDonutChart,
+        CategoryHeatmap
     },
     data() {
         return {
             selectedChart: 'monthly-line',
             chartOptions: [
                 { value: 'monthly-line', label: 'Monthly Income & Expense' },
+                { value: 'income-expense-pie', label: 'Income & Expense by category'},
+                { value: 'account-donut', label: 'Account Balance, Income & Expense by account'},
+                { value: 'category-heat', label: 'Heatmap by category'}
             ],
         };
     },
     computed: {
+        // 選擇顯示圖表
         currentChartComponent() {
             switch (this.selectedChart) {
                 case 'monthly-line':
                     return 'MonthlyLineChart';
-                // case 'category-pie':
-                //   return 'CategoryPieChart';
+                case 'income-expense-pie':
+                    return 'IncomeExpensePieChart';
+                case 'account-donut':
+                    return 'AccountDonutChart';
+                case 'category-heat':
+                    return 'CategoryHeatmap'
                 default:
                     return null;
             }
