@@ -75,7 +75,8 @@
 </template>
 
 <script>
-import { getEditRecord, updateRecord, fetchRecordMeta } from '@/api/record';
+import { getEditRecord, updateRecord } from '@/api/record';
+import { fetchMeta } from '@/api/meta';
 import errorService from '@/service/errorService';
 
 export default {
@@ -115,7 +116,7 @@ export default {
     async created() {
         // 取得要編輯的紀錄資料
         try {
-            const meta = await fetchRecordMeta();
+            const meta = await fetchMeta();
             this.accounts = meta.accounts;
             this.categories = meta.categories;
 

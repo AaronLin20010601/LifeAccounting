@@ -25,6 +25,8 @@ using LifeAccounting_Backend.Services.Implements.Excel;
 using LifeAccounting_Backend.Services.Implements.Account;
 using LifeAccounting_Backend.Services.Implements.Category;
 using LifeAccounting_Backend.Services.Implements.Record;
+using LifeAccounting_Backend.Services.Interfaces.Meta;
+using LifeAccounting_Backend.Services.Implements.Meta;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,6 +61,9 @@ builder.Services.AddScoped<IRegisterService, RegisterService>();
 // Reset Service
 builder.Services.AddScoped<IResetPasswordService, ResetPasswordService>();
 
+// Meta Service
+builder.Services.AddScoped<IMetaService, MetaService>();
+
 // Excel Service
 builder.Services.AddScoped<IRecordExportService, RecordExportService>();
 
@@ -78,7 +83,6 @@ builder.Services.AddScoped<IEditCategoryService, EditCategoryService>();
 builder.Services.AddScoped<IDeleteCategoryService, DeleteCategoryService>();
 
 // Record Service
-builder.Services.AddScoped<IRecordMetaService, RecordMetaService>();
 builder.Services.AddScoped<IGetRecordsService, GetRecordsService>();
 builder.Services.AddScoped<ICreateRecordService, CreateRecordService>();
 builder.Services.AddScoped<IGetEditRecordService, GetEditRecordService>();

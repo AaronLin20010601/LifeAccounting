@@ -20,12 +20,13 @@
         </div>
     
         <!-- 圖表區域 -->
-        <apexchart type="line" height="400" :options="chartOptions" :series="chartSeries"/>
+        <apexchart type="line" height="400" width="600" :options="chartOptions" :series="chartSeries"/>
     </div>
 </template>
   
 <script>
-import { fetchRecordMeta, fetchRecords } from '@/api/record';
+import { fetchRecords } from '@/api/record';
+import { fetchMeta } from '@/api/meta';
 import ApexCharts from 'vue3-apexcharts';
   
 export default {
@@ -75,7 +76,7 @@ export default {
     },
     async mounted() {
         this.generateYearOptions();
-        await this.fetchMeta();
+        await this.fetchMetaData();
         await this.fetchChartData();
     },
     methods: {
@@ -86,8 +87,8 @@ export default {
             this.yearOptions.unshift(y);
             }
         },
-        async fetchMeta() {
-            const meta = await fetchRecordMeta();
+        async fetchMetaData() {
+            const meta = await fetchMeta();
             this.accounts = meta.accounts;
         },
         // 圖表資料

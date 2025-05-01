@@ -45,7 +45,7 @@
 </template>
   
 <script>
-import { fetchRecordMeta } from '@/api/record';
+import { fetchMeta } from '@/api/meta';
 import { exportRecordsToExcel } from '@/api/excel';
 
 export default {
@@ -83,7 +83,7 @@ export default {
     },
     methods: {
         async fetchMetaData() {
-            const meta = await fetchRecordMeta();
+            const meta = await fetchMeta();
             this.accounts = meta.accounts;
             this.categories = meta.categories;
         },

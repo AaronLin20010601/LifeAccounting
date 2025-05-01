@@ -1,4 +1,4 @@
-﻿namespace LifeAccounting_Backend.Models.DTOs.Record
+﻿namespace LifeAccounting_Backend.Models.DTOs.Meta
 {
     public class OptionDTO
     {

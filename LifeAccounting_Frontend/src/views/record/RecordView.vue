@@ -21,7 +21,7 @@
 import RecordFilterBar from '@/components/record/RecordFilterBar.vue';
 import RecordTable from '@/components/record/RecordTable.vue';
 import Pagination from '@/components/record/Pagination.vue';
-import { fetchRecords, fetchRecordMeta } from '@/api/record';
+import { fetchRecords } from '@/api/record';
 import errorService from '@/service/errorService';
 
 export default {
@@ -57,16 +57,6 @@ export default {
                 this.page = data.currentPage;
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Error fetching records'
-            }
-        },
-
-        async fetchMeta() {
-            try {
-                const meta = await fetchRecordMeta();
-                this.accounts = meta.accounts;
-                this.categories = meta.categories;
-            } catch (error) {
-                this.errorMessage = errorService.handleError(error) || 'Error fetching metadata';
             }
         },
 

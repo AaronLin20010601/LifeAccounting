@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LifeAccounting_Backend.Models;
-using LifeAccounting_Backend.Models.DTOs.Record;
-using LifeAccounting_Backend.Services.Interfaces.Record;
+using LifeAccounting_Backend.Models.DTOs.Meta;
+using LifeAccounting_Backend.Services.Interfaces.Meta;
 
-namespace LifeAccounting_Backend.Services.Implements.Record
+namespace LifeAccounting_Backend.Services.Implements.Meta
 {
-    public class RecordMetaService : IRecordMetaService
+    public class MetaService : IMetaService
     {
         private readonly LifeAccountingDbContext _context;
 
-        public RecordMetaService(LifeAccountingDbContext context)
+        public MetaService(LifeAccountingDbContext context)
         {
             _context = context;
         }

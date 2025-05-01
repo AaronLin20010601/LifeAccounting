@@ -75,7 +75,8 @@
 </template>
 
 <script>
-import { createRecord, fetchRecordMeta } from '@/api/record';
+import { createRecord } from '@/api/record';
+import { fetchMeta } from '@/api/meta';
 import errorService from '@/service/errorService';
 
 export default {
@@ -113,7 +114,7 @@ export default {
     },
     async created() {
         try {
-            const meta = await fetchRecordMeta();
+            const meta = await fetchMeta();
             this.accounts = meta.accounts;
             this.categories = meta.categories;
         } catch (error) {

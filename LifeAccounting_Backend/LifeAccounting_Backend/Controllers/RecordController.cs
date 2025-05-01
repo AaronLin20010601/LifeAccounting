@@ -9,7 +9,6 @@ namespace LifeAccounting_Backend.Controllers
     [ApiController]
     public class RecordController : BaseApiController
     {
-        private readonly IRecordMetaService _recordMetaService;
         private readonly IGetRecordsService _getRecordsService;
         private readonly ICreateRecordService _createRecordService;
         private readonly IGetEditRecordService _getEditRecordService;
@@ -17,39 +16,17 @@ namespace LifeAccounting_Backend.Controllers
         private readonly IDeleteRecordService _deleteRecordService;
 
         public RecordController(
-            IRecordMetaService recordMetaService, 
             IGetRecordsService getRecordsService, 
             ICreateRecordService createRecordService,
             IGetEditRecordService getEditRecordService,
             IEditRecordService editRecordService,
             IDeleteRecordService deleteRecordService)
         {
-            _recordMetaService = recordMetaService;
             _getRecordsService = getRecordsService;
             _createRecordService = createRecordService;
             _getEditRecordService = getEditRecordService;
             _editRecordService = editRecordService;
             _deleteRecordService = deleteRecordService;
-        }
-
-        // 取得登入使用者的帳戶和收支紀錄選單
-        [Authorize]
-        [HttpGet("meta")]
-        public async Task<IActionResult> GetMetaData()
-        {
-            // 確保有登入的用戶
-            var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0");
-            if (userId == 0)
-            {
-                return Unauthorized(new { Message = "User is not authenticated." });
-            }
-
-            var (accounts, categories) = await _recordMetaService.GetMetaDataAsync(userId);
-            return Ok(new
-            {
-                Accounts = accounts,
-                Categories = categories
-            });
         }
 
         // 取得登入使用者的收支紀錄列表

@@ -46,7 +46,7 @@
 </template>
   
 <script>
-import { fetchRecordMeta } from '@/api/record';
+import { fetchMeta } from '@/api/meta';
 import { transferBalance } from '@/api/account';
 import errorService from '@/service/errorService';
   
@@ -64,7 +64,7 @@ export default {
     },
     async created() {
         try {
-            const meta = await fetchRecordMeta();
+            const meta = await fetchMeta();
             this.accounts = meta.accounts;
             this.categories = meta.categories;
         } catch (error) {

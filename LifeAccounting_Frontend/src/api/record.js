@@ -7,12 +7,6 @@ const getAuthHeaders = () => ({
     }
 })
 
-// 取得帳戶與分類元資料
-export const fetchRecordMeta = async () => {
-    const response = await axios.get(`${API_URL}/meta`, getAuthHeaders())
-    return response.data
-}
-
 // 取得收支紀錄列表
 export const fetchRecords = async ({accountId = null, categoryId = null, type = null, startDate = null, endDate = null, page, pageSize}) => {
     const params = new URLSearchParams({
