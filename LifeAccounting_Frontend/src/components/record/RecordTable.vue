@@ -1,4 +1,7 @@
 <template>
+    <!-- 錯誤消息顯示區域 -->
+    <div v-if="errorMessage" class="text-red-500 text-sm mb-4">{{ errorMessage }}</div>
+
     <div>
         <!-- 紀錄列表 當沒有任何紀錄時顯示 "No Records" -->
         <div v-if="records.length === 0" class="text-center text-gray-500 p-8 border border-gray-200 rounded-lg">
@@ -53,10 +56,16 @@
   
 <script>
 import { deleteRecord } from '@/api/record';
+import errorService from '@/service/errorService';
   
 export default {
     props: {
         records: Array,
+    },
+    data() {
+        return {
+            errorMessage: ''
+        };
     },
     emits: ['reload'],
     methods: {
@@ -70,9 +79,13 @@ export default {
         },
         // 刪除紀錄
         async removeRecord(record) {
-            if (!confirm('Are you sure you want to delete this record?')) return;
-            await deleteRecord(record.id);
-            this.$emit('reload');
+            try {
+                if (!confirm('Are you sure you want to delete this record?')) return;
+                await deleteRecord(record.id);
+                this.$emit('reload');
+            } catch (error) {
+                this.errorMessage = errorService.handleError(error);
+            }
         },
     },
 };

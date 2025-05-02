@@ -54,6 +54,7 @@
 import { fetchMeta } from '@/api/meta';
 import { exportRecordsToExcel } from '@/api/excel';
 import { fetchUser, toggleSync } from '@/api/user';
+import { downloadExcelFile } from '@/service/excelService';
 
 export default {
     emits: ['filter-change'],
@@ -114,29 +115,13 @@ export default {
         },
         // 下載 excel
         async downloadExcel() {
-            try {
-                const data = await exportRecordsToExcel({
-                    accountId: this.selectedAccountId,
-                    categoryId: this.selectedCategoryId,
-                    type: this.selectedType,
-                    startDate: this.startDate,
-                    endDate: this.endDate
-                })
-
-                const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-                const url = window.URL.createObjectURL(blob)
-
-                const link = document.createElement('a')
-                link.href = url
-                link.setAttribute('download', `records_${new Date().toISOString().slice(0,19).replace(/[-T:]/g,"")}.xlsx`)
-                document.body.appendChild(link)
-                link.click()
-                link.remove()
-                window.URL.revokeObjectURL(url)
-            } catch (error) {
-                console.error(error)
-                alert('Excel download failed.')
-            }
+            await downloadExcelFile(exportRecordsToExcel, {
+                accountId: this.selectedAccountId,
+                categoryId: this.selectedCategoryId,
+                type: this.selectedType,
+                startDate: this.startDate,
+                endDate: this.endDate,
+            });
         },
         // 前往新增紀錄
         goToAddRecord() {
