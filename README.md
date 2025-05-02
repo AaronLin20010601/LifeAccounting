@@ -21,14 +21,16 @@ PostgreSQL on cloud database Supabase
 - Tailwindcss:For css styling
 - Vuex:For data storage and sync
 - Axios:For api request
+- Apexcharts:For financial charts display
+- Plotly.js:For financial heatmap chart display
 
 -----
 ## Data model design
 - User:User's basic data and infos.
-  - Columns:Id, Username, Email, PasswordHash, CreatedAt.  
+  - Columns:Id, Username, Email, PasswordHash, CreatedAt, IsSync.  
   
 - Account:User's own accounts, like bank, wallet, etc.
-  - Columns:Id, UserId, Name, Currency, CreatedAt.
+  - Columns:Id, UserId, Name, Currency, CreatedAt, Balance.
   
 - Category:Income and expense category that define by user.
   - Columns:Id, UserId, Name, Type.
@@ -44,6 +46,27 @@ PostgreSQL on cloud database Supabase
 
 -----
 ## Technical Architecture & Design
+This project follows a clean architecture with clear separation of concerns between layers:
+  
+- Backend (ASP.NET Core API) is built with a modular structure using:
+  - DTOs for input/output separation from database entities.
+  - Entity Framework Core (Code First) for database access with migration support.
+  - Service Layer with Interfaces to encapsulate business logic and promote testability and scalability.
+  - Data Annotations & Fluent Validation for backend-side data validation.
+  - JWT Token Authentication with middleware to protect routes and manage user sessions.
+  - Stateless API Design following RESTful principles, ensuring consistent and scalable API behavior.
+  
+- Frontend (Vue.js) is structured with component-based design and:
+  - Vue Router to manage client-side routing.
+  - Vuex for central state management and token persistence across views.
+  - Axios for asynchronous API communication with token-based headers.
+  - Form Validation with Custom Error Handling for synchronized front-end and back-end validation feedback.
+  - Component Modularization for improved reusability and maintainability.
+  - Chart Visualization using ApexCharts and Plotly.js to display various financial statistics.
+  
+The backend and frontend are fully decoupled, enabling independent development, testing, and deployment.  
+The application is developed using Supabase PostgreSQL as a managed cloud database service.
+
 -----
 ## Project setup and compile on development
 For backend part:  
@@ -86,3 +109,28 @@ npm run dev
   
 2. Password reset:
   - Users can reset their password by providing email, then users can enter new password and verification code they get. A verification code email will be sent via Mailjet.
+  
+3. Income & expense record management:
+  - Add, edit, view, and delete individual income or expense records.
+  - Filter records by date, account, category, or type.
+  - Synchronize account balance when record is created, edited, or deleted.
+  
+4. Account management:
+  - Create multiple personal accounts (e.g., bank, cash).
+  - View, edit, or delete accounts.
+  - Support for different currencies and balance transfer.
+  
+5. Category management:
+  - Define custom income and expense categories.
+  
+6. Excel Export:
+  - Download financial records as Excel files for offline analysis or backup.
+  
+7. Account Balance Sync:
+  - If sync is enabled, account balances are automatically updated in real-time with financial record operations.
+  
+8. Financial Statistics Charts:
+  - Monthly income and expense trends line chart.
+  - Income and expense pie charts by category.
+  - Donut charts showing income & expense distribution by account.
+  - Category heatmap showing usage frequency across months.
