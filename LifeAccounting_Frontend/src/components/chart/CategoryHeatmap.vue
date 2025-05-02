@@ -55,8 +55,10 @@ export default {
         },
         // 圖表資料
         async fetchChartData() {
-            const start = new Date(this.selectedYear, 0, 1)
-            const end = new Date(this.selectedYear, 11, 31, 23, 59, 59)
+            const start = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth - 1 : 0, 1)
+            const end = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth : 12, 1)
+            end.setDate(0)
+            end.setHours(23, 59, 59, 999)
 
             const response = await fetchRecords({
                 accountId: this.selectedAccountId,

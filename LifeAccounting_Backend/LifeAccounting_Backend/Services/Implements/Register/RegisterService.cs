@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LifeAccounting_Backend.Models;
-using LifeAccounting_Backend.Models.Entities;
 using LifeAccounting_Backend.Models.DTOs.Register;
 using LifeAccounting_Backend.Services.Interfaces.Register;
 
@@ -28,7 +27,7 @@ namespace LifeAccounting_Backend.Services.Implements.Register
             }
 
             // 註冊新用戶
-            var user = new User
+            var user = new Models.Entities.User
             {
                 Username = model.Username,
                 Email = model.Email,

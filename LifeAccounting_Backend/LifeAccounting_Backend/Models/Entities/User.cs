@@ -8,6 +8,7 @@
         public string Email { get; set; } = null!; // email
         public string PasswordHash { get; set; } = null!; // 加密密碼
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // 建立時間
+        public bool IsSync { get; set; } = false; // 帳戶同步紀錄
 
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
         public ICollection<Category> Categories { get; set; } = new List<Category>();

@@ -27,6 +27,8 @@ using LifeAccounting_Backend.Services.Implements.Category;
 using LifeAccounting_Backend.Services.Implements.Record;
 using LifeAccounting_Backend.Services.Interfaces.Meta;
 using LifeAccounting_Backend.Services.Implements.Meta;
+using LifeAccounting_Backend.Services.Interfaces.User;
+using LifeAccounting_Backend.Services.Implements.User;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,6 +68,10 @@ builder.Services.AddScoped<IMetaService, MetaService>();
 
 // Excel Service
 builder.Services.AddScoped<IRecordExportService, RecordExportService>();
+
+// User Service
+builder.Services.AddScoped<IGetUserService, GetUserService>();
+builder.Services.AddScoped<ISyncBalanceService, SyncBalanceService>();
 
 // Account Service
 builder.Services.AddScoped<IGetAccountsService, GetAccountsService>();

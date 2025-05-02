@@ -22,6 +22,12 @@
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
             </select>
+
+            <label class="mr-2">Sync with accounts:</label>
+            <input
+                type="checkbox" v-model="user.isSync" @change="toggleUserSync"
+                class="w-5 h-5 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
+            />
         </div>
     
         <div class="flex flex-wrap gap-4 items-center">
@@ -47,11 +53,15 @@
 <script>
 import { fetchMeta } from '@/api/meta';
 import { exportRecordsToExcel } from '@/api/excel';
+import { fetchUser, toggleSync } from '@/api/user';
 
 export default {
     emits: ['filter-change'],
     data() {
         return {
+            user: {
+                isSync: false
+            },
             accounts: [],
             categories: [],
             selectedAccountId: null,
@@ -63,6 +73,7 @@ export default {
     },
     mounted() {
         this.fetchMetaData();
+        this.fetchUserData();
     },
     computed: {
         // 如果有選擇 category，就鎖定 type
@@ -86,6 +97,11 @@ export default {
             const meta = await fetchMeta();
             this.accounts = meta.accounts;
             this.categories = meta.categories;
+        },
+        // 取得使用者資料
+        async fetchUserData() {
+            const data = await fetchUser();
+            this.user = data.item;
         },
         onFilterChange() {
             this.$emit('filter-change', {
@@ -125,6 +141,10 @@ export default {
         // 前往新增紀錄
         goToAddRecord() {
             this.$router.push('/addrecord');
+        },
+        // 更新帳戶和紀錄同步
+        async toggleUserSync() {
+            await toggleSync(this.user.isSync);
         },
     },
 };

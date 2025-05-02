@@ -11,7 +11,7 @@
                 </option>
             </select>
         </div>
-    
+        
         <!-- 圖表顯示區 -->
         <div class="border rounded p-4 shadow">
             <component :is="currentChartComponent" />

@@ -10,6 +10,7 @@ namespace LifeAccounting_Backend.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IGetAccountsService _getAccountsService;
+        
         private readonly ITransferBalanceService _transferBalanceService;
         private readonly ICreateAccountService _createAccountService;
         private readonly IGetEditAccountService _getEditAccountService;

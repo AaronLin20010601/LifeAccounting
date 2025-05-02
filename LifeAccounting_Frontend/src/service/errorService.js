@@ -3,6 +3,11 @@ export default {
         let errorMessage = '';
     
         if (error.response) {
+            const status = error.response.status;
+            if (status === 401) {
+                return 'User is not authenticated. Please log in again.';
+            }
+
             if (error.response.data && error.response.data.errors) {
                 // 處理字段驗證錯誤
                 const errors = error.response.data.errors;

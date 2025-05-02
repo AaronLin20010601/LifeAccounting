@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LifeAccounting_Backend.Models;
-using LifeAccounting_Backend.Models.Entities;
 using LifeAccounting_Backend.Models.DTOs.Login;
 using LifeAccounting_Backend.Services.Interfaces.Token;
 using LifeAccounting_Backend.Services.Interfaces.Login;
@@ -19,7 +18,7 @@ namespace LifeAccounting_Backend.Services.Implements.Login
         }
 
         // 驗證登入資訊並產生 JWT
-        public async Task<(bool Success, string Message, string? Token, User? User)> LoginAsync(LoginDTO model)
+        public async Task<(bool Success, string Message, string? Token, Models.Entities.User? User)> LoginAsync(LoginDTO model)
         {
             // 檢查 Email 是否存在
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);

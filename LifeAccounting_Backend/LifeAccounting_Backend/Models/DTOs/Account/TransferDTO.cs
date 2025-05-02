@@ -2,6 +2,7 @@
 
 namespace LifeAccounting_Backend.Models.DTOs.Account
 {
+    // 帳戶餘額轉移
     public class TransferDTO
     {
         [Required(ErrorMessage = "Account is required.")]

@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using LifeAccounting_Backend.Models.Entities;
 using LifeAccounting_Backend.Services.Interfaces.Token;
 
 namespace LifeAccounting_Backend.Services.Implements.Token
@@ -17,7 +16,7 @@ namespace LifeAccounting_Backend.Services.Implements.Token
         }
 
         // 產生 JWT 驗證碼
-        public string CreateJwtToken(User user)
+        public string CreateJwtToken(Models.Entities.User user)
         {
             var claims = new[]
             {
