@@ -34,7 +34,7 @@ namespace LifeAccounting_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRecords(
                 [FromQuery] int? accountId, [FromQuery] int? categoryId, [FromQuery] string? type, 
-                [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int page = 1, [FromQuery] int pageSize = 10
+                [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? toCurrency = null
             )
         {
             // 確保有登入的用戶
@@ -44,7 +44,7 @@ namespace LifeAccounting_Backend.Controllers
                 return Unauthorized(new { Message = "User is not authenticated." });
             }
 
-            var data = await _getRecordsService.GetRecordsAsync(userId, accountId, categoryId, type, startDate, endDate, page , pageSize);
+            var data = await _getRecordsService.GetRecordsAsync(userId, accountId, categoryId, type, startDate, endDate, page , pageSize, toCurrency);
             return Ok(data);
         }
 

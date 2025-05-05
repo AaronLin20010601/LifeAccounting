@@ -2,6 +2,6 @@
 {
     public interface IGetRecordsService
     {
-        Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime? startDate, DateTime? endDate, int page, int pageSize);
+        Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime? startDate, DateTime? endDate, int page, int pageSize, string? toCurrency = null);
     }
 }

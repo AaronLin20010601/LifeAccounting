@@ -20,6 +20,14 @@
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
             </select>
+
+            <!-- 幣別選單 -->
+            <label class="mr-2">Currency:</label>
+            <select v-model="selectedCurrency" @change="fetchChartData" class="p-2 border rounded">
+                <option value="TWD">TWD</option>
+                <option value="USD">USD</option>
+                <option value="JPY">JPY</option>
+            </select>
         </div>
     
         <!-- 圖表區域 -->
@@ -40,6 +48,7 @@ export default {
             selectedYear: new Date().getFullYear(),
             selectedAccountId: null,
             selectedType: 'Income',
+            selectedCurrency: 'TWD',
             yearOptions: [],
         }
     },
@@ -67,6 +76,7 @@ export default {
                 endDate: end,
                 page: 1,
                 pageSize: 1000,
+                toCurrency: this.selectedCurrency,
             })
 
             const dataMap = {}

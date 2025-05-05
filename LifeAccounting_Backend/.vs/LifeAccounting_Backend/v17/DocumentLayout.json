@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\record\\getrecordsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\record\\getrecordsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\meta\\metaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\meta\\metaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\currency\\exchangerateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\currency\\exchangerateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\currency\\currencyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\currency\\currencyservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,41 +31,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CurrencyService.cs",
-              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Currency\\CurrencyService.cs",
-              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Currency\\CurrencyService.cs",
-              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Currency\\CurrencyService.cs",
-              "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Currency\\CurrencyService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAFAAAAAAAAAA==",
+              "Title": "MetaService.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Meta\\MetaService.cs",
+              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Meta\\MetaService.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Meta\\MetaService.cs",
+              "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Meta\\MetaService.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvyIAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T05:16:19.892Z",
+              "WhenOpened": "2025-05-05T08:14:24.943Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ExchangeRateService.cs",
-              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Currency\\ExchangeRateService.cs",
-              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Currency\\ExchangeRateService.cs",
-              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Currency\\ExchangeRateService.cs",
-              "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Currency\\ExchangeRateService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAARAAAAAAAAAA==",
+              "Title": "RecordController.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "RelativeToolTip": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAwCgAAABzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T05:09:25.166Z",
+              "WhenOpened": "2025-05-05T07:26:55.058Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GetRecordsService.cs",
+              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
+              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
+              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
+              "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAIwFIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-05T07:02:42.158Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Program.cs",
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Program.cs",
               "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Program.cs",
               "RelativeToolTip": "LifeAccounting_Backend\\Program.cs",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAAJgAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAAAJcAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T05:58:00.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-24T05:58:00.607Z"
             }
           ]
         }

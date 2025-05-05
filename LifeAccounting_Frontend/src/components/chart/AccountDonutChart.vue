@@ -13,6 +13,14 @@
                 <option :value="null">All</option>
                 <option v-for="m in 12" :key="m" :value="m">{{ m }}</option>
             </select>
+
+            <!-- 幣別選單 -->
+            <label class="mr-2">Currency:</label>
+            <select v-model="selectedCurrency" @change="fetchChartData" class="p-2 border rounded">
+                <option value="TWD">TWD</option>
+                <option value="USD">USD</option>
+                <option value="JPY">JPY</option>
+            </select>
         </div>
     
         <!-- 圖表區域 -->
@@ -56,6 +64,7 @@ export default {
         return {
             selectedYear: new Date().getFullYear(),
             selectedMonth: null,
+            selectedCurrency: 'TWD',
             yearOptions: [],
             accounts: [],
             balanceSeries: [],
@@ -73,7 +82,8 @@ export default {
     },
     methods: {
         async fetchMetaData() {
-            const meta = await fetchMeta()
+            const meta = await fetchMeta({ toCurrency: this.selectedCurrency })
+            console.log('Meta accounts:', meta.accounts)
             this.accounts = meta.accounts
         },
         // 圖表資料
@@ -84,12 +94,13 @@ export default {
             end.setHours(23, 59, 59, 999)
 
             const [meta, response] = await Promise.all([
-                fetchMeta(),
+                fetchMeta({ toCurrency: this.selectedCurrency }),
                 fetchRecords({
                     startDate: start,
                     endDate: end,
                     page: 1,
                     pageSize: 1000,
+                    toCurrency: this.selectedCurrency,
                 }),
             ])
 
@@ -103,6 +114,11 @@ export default {
                 labels: accountNames,
                 colors: generateGrayScaleColors(accountNames.length),
                 legend: { position: 'bottom' },
+                tooltip: {
+                    y: {
+                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
+                    }
+                }
             }
 
             // 收支分布
@@ -127,6 +143,11 @@ export default {
                 labels: incomeLabels,
                 colors: generateRandomColors(incomeLabels.length, [180, 240]),
                 legend: { position: 'bottom' },
+                tooltip: {
+                    y: {
+                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
+                    }
+                }
             }
 
             // 帳戶支出
@@ -136,6 +157,11 @@ export default {
                 labels: expenseLabels,
                 colors: generateRandomColors(expenseLabels.length, [0, 50]),
                 legend: { position: 'bottom' },
+                tooltip: {
+                    y: {
+                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
+                    }
+                }
             }
         },
     },

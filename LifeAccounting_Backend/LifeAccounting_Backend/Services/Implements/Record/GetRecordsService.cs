@@ -2,6 +2,7 @@
 using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Record;
 using LifeAccounting_Backend.Services.Interfaces.Record;
+using DocumentFormat.OpenXml.VariantTypes;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {
@@ -15,7 +16,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
         }
 
         // 取得使用者收支紀錄
-        public async Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime? startDate, DateTime? endDate, int page, int pageSize)
+        public async Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime ? startDate, DateTime? endDate, int page, int pageSize, string? toCurrency = null)
         {
             var query = _context.Records.Include(r => r.Account).Include(r => r.Category).Where(r => r.UserId == userId);
 
@@ -49,18 +50,49 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 .Take(pageSize)
                 .ToListAsync();
 
-            // 回傳收支紀錄列表
-            var recordModels = records.Select(r => new RecordDTO
+            // 匯率表
+            Dictionary<string, decimal> exchangeRates = null;
+            if (!string.IsNullOrEmpty(toCurrency))
             {
-                Id = r.Id,
-                AccountId = r.AccountId,
-                AccountName = r.Account.Name,
-                CategoryId = r.CategoryId,
-                CategoryName = r.Category?.Name,
-                Amount = r.Amount,
-                Note = r.Note,
-                Date = r.Date,
-                Type = r.Type,
+                exchangeRates = await _context.ExchangeRates
+                    .Where(r => r.ToCurrency == toCurrency)
+                    .ToDictionaryAsync(r => r.FromCurrency, r => r.ToPrice);
+            }
+
+            // 回傳收支紀錄列表
+            var recordModels = records.Select(r =>
+            {
+                decimal convertedAmount = 0m;
+                var fromCurrency = r.Account.Currency;
+
+                if (!string.IsNullOrEmpty(toCurrency))
+                {
+                    if (fromCurrency == toCurrency)
+                    {
+                        convertedAmount = r.Amount;
+                    }
+                    else if (exchangeRates != null && exchangeRates.TryGetValue(fromCurrency, out var rate))
+                    {
+                        convertedAmount = r.Amount * rate;
+                    }
+                }
+                else
+                {
+                    convertedAmount = r.Amount;
+                }
+
+                return new RecordDTO
+                {
+                    Id = r.Id,
+                    AccountId = r.AccountId,
+                    AccountName = r.Account.Name,
+                    CategoryId = r.CategoryId,
+                    CategoryName = r.Category?.Name,
+                    Amount = Math.Round(convertedAmount, 2),
+                    Note = r.Note,
+                    Date = r.Date,
+                    Type = r.Type
+                };
             }).ToList();
 
             // 包裝回傳格式

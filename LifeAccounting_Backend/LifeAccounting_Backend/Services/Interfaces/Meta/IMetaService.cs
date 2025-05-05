@@ -4,6 +4,6 @@ namespace LifeAccounting_Backend.Services.Interfaces.Meta
 {
     public interface IMetaService
     {
-        Task<(List<OptionDTO> Accounts, List<OptionDTO> Categories)> GetMetaDataAsync(int userId);
+        Task<(List<OptionDTO> Accounts, List<OptionDTO> Categories)> GetMetaDataAsync(int userId, string? toCurrency);
     }
 }

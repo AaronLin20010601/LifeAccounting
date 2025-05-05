@@ -40,7 +40,6 @@ namespace LifeAccounting_Backend.Services.Implements.Currency
                     _context.ExchangeRates.Add(new ExchangeRate
                     {
                         FromCurrency = from,
-                        FromPrice = 1,
                         ToCurrency = to,
                         ToPrice = rate,
                         UpdatedAt = DateTime.UtcNow

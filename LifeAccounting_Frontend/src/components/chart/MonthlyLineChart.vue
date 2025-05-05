@@ -13,6 +13,14 @@
                 <option :value="null">All</option>
                 <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
             </select>
+
+            <!-- 幣別選單 -->
+            <label class="mr-2">Currency:</label>
+            <select v-model="selectedCurrency" @change="fetchChartData" class="p-2 border rounded">
+                <option value="TWD">TWD</option>
+                <option value="USD">USD</option>
+                <option value="JPY">JPY</option>
+            </select>
         </div>
     
         <!-- 圖表區域 -->
@@ -33,6 +41,7 @@ export default {
             accounts: [],
             selectedAccountId: null,
             selectedYear: new Date().getFullYear(),
+            selectedCurrency: 'TWD',
             yearOptions: [],
             chartSeries: [],
             chartOptions: {
@@ -61,7 +70,7 @@ export default {
                 },
                 tooltip: {
                     y: {
-                        formatter: (val) => `$${val}`,
+                        formatter: (val) => `$${parseFloat(val.toFixed(2)).toString()}`,
                     },
                 },
                 legend: {
@@ -94,6 +103,7 @@ export default {
                 endDate,
                 page: 1,
                 pageSize: 1000,
+                toCurrency: this.selectedCurrency,
             });
     
             // 月收支折線圖
@@ -111,14 +121,8 @@ export default {
             }
     
             this.chartSeries = [
-                {
-                    name: 'Income',
-                    data: incomeMap,
-                },
-                {
-                    name: 'Expense',
-                    data: expenseMap,
-                },
+                { name: 'Income', data: incomeMap, },
+                { name: 'Expense', data: expenseMap, },
             ];
         },
     },

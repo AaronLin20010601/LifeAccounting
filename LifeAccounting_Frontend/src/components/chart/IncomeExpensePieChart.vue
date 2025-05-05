@@ -20,6 +20,14 @@
                 <option :value="null">All</option>
                 <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
             </select>
+
+            <!-- 幣別選單 -->
+            <label class="mr-2">Currency:</label>
+            <select v-model="selectedCurrency" @change="fetchChartData" class="p-2 border rounded">
+                <option value="TWD">TWD</option>
+                <option value="USD">USD</option>
+                <option value="JPY">JPY</option>
+            </select>
         </div>
     
         <!-- 圖表區域 -->
@@ -60,6 +68,7 @@ export default {
             selectedYear: new Date().getFullYear(),
             selectedMonth: null,
             selectedAccountId: null,
+            selectedCurrency: 'TWD',
             yearOptions: [],
             incomeSeries: [],
             expenseSeries: [],
@@ -90,6 +99,7 @@ export default {
                 endDate: end,
                 page: 1,
                 pageSize: 1000,
+                toCurrency: this.selectedCurrency,
             })
 
             const incomeMap = {}
@@ -116,6 +126,11 @@ export default {
                 labels: Object.keys(incomeMap),
                 colors: generateRandomColors(incomeLabels.length, [180, 240]),
                 legend: { position: 'bottom' },
+                tooltip: {
+                    y: {
+                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
+                    }
+                }
             }
 
             // 支出圖表
@@ -124,6 +139,11 @@ export default {
                 labels: Object.keys(expenseMap),
                 colors: generateRandomColors(expenseLabels.length, [0, 50]),
                 legend: { position: 'bottom' },
+                tooltip: {
+                    y: {
+                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
+                    }
+                }
             }
         },
     },

@@ -15,19 +15,33 @@ namespace LifeAccounting_Backend.Services.Implements.Meta
         }
 
         // 取得帳戶和收支類型下拉選單選項
-        public async Task<(List<OptionDTO> Accounts, List<OptionDTO> Categories)> GetMetaDataAsync(int userId)
+        public async Task<(List<OptionDTO> Accounts, List<OptionDTO> Categories)> GetMetaDataAsync(int userId, string? toCurrency)
         {
+            var rates = await _context.ExchangeRates
+                .Where(r => r.ToCurrency == toCurrency)
+                .ToListAsync();
+
             var accounts = await _context.Accounts
                 .Where(a => a.UserId == userId)
-                .Select(a => new OptionDTO { Id = a.Id, Name = a.Name, Balance = a.Balance })
-                .ToListAsync();
+                .Select(a => new { a.Id, a.Name, a.Balance, a.Currency }).ToListAsync();
+
+            var convertedAccounts = accounts.Select(a => {
+                var rate = rates.FirstOrDefault(r => r.FromCurrency == a.Currency);
+                var convertedBalance = (rate != null && rate.ToPrice != 0) ? a.Balance * rate.ToPrice : a.Balance;
+                return new OptionDTO
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Balance = Math.Round(convertedBalance, 2),
+                };
+            }).ToList();
 
             var categories = await _context.Categories
                 .Where(c => c.UserId == userId)
                 .Select(c => new OptionDTO { Id = c.Id, Name = c.Name, Type = c.Type })
                 .ToListAsync();
 
-            return (accounts, categories);
+            return (convertedAccounts, categories);
         }
     }
 }

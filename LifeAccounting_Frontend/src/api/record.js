@@ -8,7 +8,8 @@ const getAuthHeaders = () => ({
 })
 
 // 取得收支紀錄列表
-export const fetchRecords = async ({accountId = null, categoryId = null, type = null, startDate = null, endDate = null, page, pageSize}) => {
+export const fetchRecords = async ({accountId = null, categoryId = null, type = null, 
+    startDate = null, endDate = null, page, pageSize, toCurrency = null}) => {
     const params = new URLSearchParams({
         page,
         pageSize,
@@ -32,6 +33,10 @@ export const fetchRecords = async ({accountId = null, categoryId = null, type = 
 
     if (endDate) {
         params.append('endDate', new Date(endDate).toISOString());
+    }
+
+    if (toCurrency) {
+        params.append('toCurrency', toCurrency)
     }
 
     const response = await axios.get(`${API_URL}?${params.toString()}`, getAuthHeaders());
