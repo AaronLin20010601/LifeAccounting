@@ -16,6 +16,7 @@ namespace LifeAccounting_Backend.Models
         public DbSet<Record> Records { get; set; } = null!;
         public DbSet<EmailLog> EmailLogs { get; set; }
         public DbSet<ResetToken> ResetTokens { get; set; }
+        public DbSet<ExchangeRate> ExchangeRates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

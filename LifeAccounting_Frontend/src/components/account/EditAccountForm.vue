@@ -21,7 +21,6 @@
                     <option value="TWD">TWD</option>
                     <option value="USD">USD</option>
                     <option value="JPY">JPY</option>
-                    <option value="EUR">EUR</option>
                 </select>
             </div>
 

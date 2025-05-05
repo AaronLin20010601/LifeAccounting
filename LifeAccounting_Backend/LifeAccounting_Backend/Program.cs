@@ -7,6 +7,7 @@ using LifeAccounting_Backend.Settings;
 using LifeAccounting_Backend.Services.Interfaces.Email;
 using LifeAccounting_Backend.Services.Interfaces.Token;
 using LifeAccounting_Backend.Services.Interfaces.VerifyCode;
+using LifeAccounting_Backend.Services.Interfaces.Currency;
 using LifeAccounting_Backend.Services.Interfaces.Login;
 using LifeAccounting_Backend.Services.Interfaces.Register;
 using LifeAccounting_Backend.Services.Interfaces.Reset;
@@ -20,6 +21,7 @@ using LifeAccounting_Backend.Services.Interfaces.Record;
 using LifeAccounting_Backend.Services.Implements.Email;
 using LifeAccounting_Backend.Services.Implements.Token;
 using LifeAccounting_Backend.Services.Implements.VerifyCode;
+using LifeAccounting_Backend.Services.Implements.Currency;
 using LifeAccounting_Backend.Services.Implements.Login;
 using LifeAccounting_Backend.Services.Implements.Register;
 using LifeAccounting_Backend.Services.Implements.Reset;
@@ -39,6 +41,9 @@ builder.Services.AddDbContext<LifeAccountingDbContext>(options =>
 // µù¥U Settings
 builder.Services.Configure<MailjetSettings>(builder.Configuration.GetSection("Mailjet"));
 
+// µù¥U http client
+builder.Services.AddHttpClient();
+
 // µù¥U DI
 // Email Service
 builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -52,6 +57,10 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IVerificationCode, VerificationCode>();
 builder.Services.AddScoped<IRegisterVerificationService, RegisterVerificationService>();
 builder.Services.AddScoped<IResetVerificationService, ResetVerificationService>();
+
+// Exchange Rate Service
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IExchangeRateService, ExchangeRateService>();
 
 // Login Service
 builder.Services.AddScoped<ILoginService, LoginService>();
@@ -136,5 +145,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// ¶×²vªì©l¤Æ
+using (var scope = app.Services.CreateScope())
+{
+    var exchangeRateService = scope.ServiceProvider.GetRequiredService<IExchangeRateService>();
+    await exchangeRateService.SeedExchangeRatesAsync();
+}
 
 app.Run("http://localhost:5100");
