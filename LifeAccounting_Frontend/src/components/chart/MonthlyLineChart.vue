@@ -30,9 +30,8 @@
   
 <script>
 import ApexCharts from 'vue3-apexcharts';
-import { fetchRecords } from '@/api/record';
 import { fetchMeta } from '@/api/meta';
-import { generateYearOptions } from '@/service/chartService';
+import { generateYearOptions, getMonthlyIncomeExpenseData } from '@/service/chartService';
   
 export default {
     components: { apexchart: ApexCharts },
@@ -91,39 +90,11 @@ export default {
         },
         // 圖表資料
         async fetchChartData() {
-            const startDate = new Date(`${this.selectedYear}-01-01`);
-            const endDate = new Date(`${this.selectedYear}-12-31`);
-    
-            const incomeMap = Array(12).fill(0);
-            const expenseMap = Array(12).fill(0);
-    
-            const response = await fetchRecords({
+            this.chartSeries = await getMonthlyIncomeExpenseData({
+                year: this.selectedYear,
                 accountId: this.selectedAccountId,
-                startDate,
-                endDate,
-                page: 1,
-                pageSize: 1000,
                 toCurrency: this.selectedCurrency,
             });
-    
-            // 月收支折線圖
-            for (const record of response.items) {
-                const date = new Date(record.date);
-                const monthIndex = date.getMonth();
-                const amount = Math.abs(record.amount);
-        
-                if (record.type === 'Income') {
-                    incomeMap[monthIndex] += amount;
-                }
-                else if (record.type === 'Expense') {
-                    expenseMap[monthIndex] += amount;
-                }
-            }
-    
-            this.chartSeries = [
-                { name: 'Income', data: incomeMap, },
-                { name: 'Expense', data: expenseMap, },
-            ];
         },
     },
 };

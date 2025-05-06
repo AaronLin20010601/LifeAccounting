@@ -32,36 +32,19 @@
     
         <!-- 圖表區域 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <h2 class="text-xl font-semibold text-center mb-2">Income</h2>
-                <div v-if="incomeSeries.length">
-                    <apexchart type="pie" height="350" :options="incomeChartOptions" :series="incomeSeries" />
-                </div>
-                <div v-else class="h-[350px] flex items-center justify-center text-gray-500 border rounded">
-                    No Data
-                </div>
-            </div>
-            <div>
-                <h2 class="text-xl font-semibold text-center mb-2">Expense</h2>
-                <div v-if="expenseSeries.length">
-                    <apexchart type="pie" height="350" :options="expenseChartOptions" :series="expenseSeries" />
-                </div>
-                <div v-else class="h-[350px] flex items-center justify-center text-gray-500 border rounded">
-                    No Data
-                </div>
-            </div>
+            <PieChart title="Income" :series="incomeSeries" :labels="incomeLabels" :colors="incomeColors"/>
+            <PieChart title="Expense" :series="expenseSeries" :labels="expenseLabels" :colors="expenseColors"/>
         </div>
     </div>
 </template>
   
 <script>
-import ApexCharts from 'vue3-apexcharts';
-import { fetchRecords } from '@/api/record';
+import PieChart from '@/components/chart/PieChart.vue';
 import { fetchMeta } from '@/api/meta';
-import { generateYearOptions, generateRandomColors } from '@/service/chartService';
+import { generateYearOptions, getIncomeExpensePieData } from '@/service/chartService';
   
 export default {
-    components: { apexchart: ApexCharts },
+    components: { PieChart },
     data() {
         return {
             accounts: [],
@@ -70,10 +53,12 @@ export default {
             selectedAccountId: null,
             selectedCurrency: 'TWD',
             yearOptions: [],
+            incomeLabels: [],
             incomeSeries: [],
+            incomeColors: [],
+            expenseLabels: [],
             expenseSeries: [],
-            incomeChartOptions: { labels: [], colors: [], legend: { position: 'bottom' } },
-            expenseChartOptions: { labels: [], colors: [], legend: { position: 'bottom' } },
+            expenseColors: [],
         }
     },
     async mounted() {
@@ -83,68 +68,25 @@ export default {
     },
     methods: {
         async fetchMetaData() {
-            const meta = await fetchMeta();
+            const meta = await fetchMeta({ toCurrency: this.selectedCurrency });
             this.accounts = meta.accounts;
         },
         // 圖表資料
         async fetchChartData() {
-            const start = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth - 1 : 0, 1)
-            const end = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth : 12, 1)
-            end.setDate(0)
-            end.setHours(23, 59, 59, 999)
-
-            const response = await fetchRecords({
+            const chartData = await getIncomeExpensePieData({
+                year: this.selectedYear,
+                month: this.selectedMonth,
                 accountId: this.selectedAccountId,
-                startDate: start,
-                endDate: end,
-                page: 1,
-                pageSize: 1000,
-                toCurrency: this.selectedCurrency,
-            })
+                currency: this.selectedCurrency,
+            });
 
-            const incomeMap = {}
-            const expenseMap = {}
+            this.incomeLabels = chartData.income.labels;
+            this.incomeSeries = chartData.income.series;
+            this.incomeColors = chartData.income.colors;
 
-            // 收支類別
-            for (const record of response.items) {
-                const categoryName = record.categoryName || 'Other'
-                const amount = Math.abs(record.amount)
-
-                if (record.type === 'Income') {
-                    incomeMap[categoryName] = (incomeMap[categoryName] || 0) + amount
-                } else if (record.type === 'Expense') {
-                    expenseMap[categoryName] = (expenseMap[categoryName] || 0) + amount
-                }
-            }
-
-            const incomeLabels = Object.keys(incomeMap)
-            const expenseLabels = Object.keys(expenseMap)
-
-            // 收入圖表
-            this.incomeSeries = Object.values(incomeMap)
-            this.incomeChartOptions = {
-                labels: Object.keys(incomeMap),
-                colors: generateRandomColors(incomeLabels.length, [180, 240]),
-                legend: { position: 'bottom' },
-                tooltip: {
-                    y: {
-                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
-                    }
-                }
-            }
-
-            // 支出圖表
-            this.expenseSeries = Object.values(expenseMap)
-            this.expenseChartOptions = {
-                labels: Object.keys(expenseMap),
-                colors: generateRandomColors(expenseLabels.length, [0, 50]),
-                legend: { position: 'bottom' },
-                tooltip: {
-                    y: {
-                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
-                    }
-                }
-            }
+            this.expenseLabels = chartData.expense.labels;
+            this.expenseSeries = chartData.expense.series;
+            this.expenseColors = chartData.expense.colors;
         },
     },
 }

@@ -62,23 +62,13 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             // 回傳收支紀錄列表
             var recordModels = records.Select(r =>
             {
-                decimal convertedAmount = 0m;
+                // 檢查是否依匯率調整
+                decimal convertedAmount = r.Amount;
                 var fromCurrency = r.Account.Currency;
 
-                if (!string.IsNullOrEmpty(toCurrency))
+                if (!string.IsNullOrEmpty(toCurrency) && fromCurrency != toCurrency && exchangeRates?.TryGetValue(fromCurrency, out var rate) == true)
                 {
-                    if (fromCurrency == toCurrency)
-                    {
-                        convertedAmount = r.Amount;
-                    }
-                    else if (exchangeRates != null && exchangeRates.TryGetValue(fromCurrency, out var rate))
-                    {
-                        convertedAmount = r.Amount * rate;
-                    }
-                }
-                else
-                {
-                    convertedAmount = r.Amount;
+                    convertedAmount = r.Amount * rate;
                 }
 
                 return new RecordDTO

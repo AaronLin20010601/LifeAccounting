@@ -25,54 +25,35 @@
     
         <!-- 圖表區域 -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-                <h2 class="text-center font-semibold mb-2">Current Account Balance</h2>
-                <div v-if="balanceSeries.length">
-                    <apexchart type="donut" height="300" :options="balanceChartOptions" :series="balanceSeries" />
-                </div>
-                <div v-else class="h-[300px] flex items-center justify-center text-gray-500 border rounded">No Data</div>
-            </div>
-
-            <div>
-                <h2 class="text-center font-semibold mb-2">Income</h2>
-                <div v-if="incomeSeries.length">
-                    <apexchart type="donut" height="300" :options="incomeChartOptions" :series="incomeSeries" />
-                </div>
-                <div v-else class="h-[300px] flex items-center justify-center text-gray-500 border rounded">No Data</div>
-            </div>
-
-            <div>
-                <h2 class="text-center font-semibold mb-2">Expense</h2>
-                <div v-if="expenseSeries.length">
-                    <apexchart type="donut" height="300" :options="expenseChartOptions" :series="expenseSeries" />
-                </div>
-                <div v-else class="h-[300px] flex items-center justify-center text-gray-500 border rounded">No Data</div>
-            </div>
+            <DonutChart title="Current Account Balance" :series="balanceSeries" :labels="balanceLabels" :colors="balanceColors"/>
+            <DonutChart title="Income" :series="incomeSeries" :labels="incomeLabels" :colors="incomeColors"/>
+            <DonutChart title="Expense" :series="expenseSeries" :labels="expenseLabels" :colors="expenseColors"/>
         </div>
     </div>
 </template>
   
 <script>
-import ApexCharts from 'vue3-apexcharts'
-import { fetchRecords } from '@/api/record'
-import { fetchMeta } from '@/api/meta'
-import { generateYearOptions, generateRandomColors, generateGrayScaleColors } from '@/service/chartService';
+import DonutChart from '@/components/chart/DonutChart.vue';
+import { fetchMeta } from '@/api/meta';
+import { generateYearOptions, getAccountDonutData } from '@/service/chartService';
   
 export default {
-    components: { apexchart: ApexCharts },
+    components: { DonutChart },
     data() {
         return {
             selectedYear: new Date().getFullYear(),
             selectedMonth: null,
             selectedCurrency: 'TWD',
             yearOptions: [],
-            accounts: [],
+            balanceLabels: [],
             balanceSeries: [],
+            balanceColors: [],
+            incomeLabels: [],
             incomeSeries: [],
+            incomeColors: [],
+            expenseLabels: [],
             expenseSeries: [],
-            balanceChartOptions: { labels: [], colors: [], legend: { position: 'bottom' } },
-            incomeChartOptions: { labels: [], colors: [], legend: { position: 'bottom' } },
-            expenseChartOptions: { labels: [], colors: [], legend: { position: 'bottom' } },
+            expenseColors: [],
         }
     },
     async mounted() {
@@ -83,86 +64,27 @@ export default {
     methods: {
         async fetchMetaData() {
             const meta = await fetchMeta({ toCurrency: this.selectedCurrency })
-            console.log('Meta accounts:', meta.accounts)
             this.accounts = meta.accounts
         },
         // 圖表資料
         async fetchChartData() {
-            const start = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth - 1 : 0, 1)
-            const end = new Date(this.selectedYear, this.selectedMonth ? this.selectedMonth : 12, 1)
-            end.setDate(0)
-            end.setHours(23, 59, 59, 999)
+            const chartData = await getAccountDonutData({
+                year: this.selectedYear,
+                month: this.selectedMonth,
+                currency: this.selectedCurrency,
+            })
 
-            const [meta, response] = await Promise.all([
-                fetchMeta({ toCurrency: this.selectedCurrency }),
-                fetchRecords({
-                    startDate: start,
-                    endDate: end,
-                    page: 1,
-                    pageSize: 1000,
-                    toCurrency: this.selectedCurrency,
-                }),
-            ])
+            this.balanceLabels = chartData.balance.labels
+            this.balanceSeries = chartData.balance.series
+            this.balanceColors = chartData.balance.colors
 
-            this.accounts = meta.accounts
+            this.incomeLabels = chartData.income.labels
+            this.incomeSeries = chartData.income.series
+            this.incomeColors = chartData.income.colors
 
-            // 帳戶餘額分布
-            const balances = this.accounts.map(a => a.balance || 0)
-            const accountNames = this.accounts.map(a => a.name)
-            this.balanceSeries = balances
-            this.balanceChartOptions = {
-                labels: accountNames,
-                colors: generateGrayScaleColors(accountNames.length),
-                legend: { position: 'bottom' },
-                tooltip: {
-                    y: {
-                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
-                    }
-                }
-            }
-
-            // 收支分布
-            const incomeMap = {}
-            const expenseMap = {}
-
-            for (const record of response.items) {
-                const name = this.accounts.find(a => a.id === record.accountId)?.name || 'Unknown'
-                const amount = Math.abs(record.amount)
-
-                if (record.type === 'Income') {
-                    incomeMap[name] = (incomeMap[name] || 0) + amount
-                } else if (record.type === 'Expense') {
-                    expenseMap[name] = (expenseMap[name] || 0) + amount
-                }
-            }
-
-            // 帳戶收入
-            const incomeLabels = Object.keys(incomeMap)
-            this.incomeSeries = Object.values(incomeMap)
-            this.incomeChartOptions = {
-                labels: incomeLabels,
-                colors: generateRandomColors(incomeLabels.length, [180, 240]),
-                legend: { position: 'bottom' },
-                tooltip: {
-                    y: {
-                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
-                    }
-                }
-            }
-
-            // 帳戶支出
-            const expenseLabels = Object.keys(expenseMap)
-            this.expenseSeries = Object.values(expenseMap)
-            this.expenseChartOptions = {
-                labels: expenseLabels,
-                colors: generateRandomColors(expenseLabels.length, [0, 50]),
-                legend: { position: 'bottom' },
-                tooltip: {
-                    y: {
-                        formatter: (val) => parseFloat(val.toFixed(2)).toString()
-                    }
-                }
-            }
+            this.expenseLabels = chartData.expense.labels
+            this.expenseSeries = chartData.expense.series
+            this.expenseColors = chartData.expense.colors
         },
     },
 }

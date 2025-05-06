@@ -26,6 +26,7 @@ namespace LifeAccounting_Backend.Services.Implements.Currency
             {
                 _context.ExchangeRates.RemoveRange(existingRates);
                 await _context.SaveChangesAsync();
+                _context.ChangeTracker.Clear();
 
                 var currencyPairs = new List<(string from, string to)>
                 {
