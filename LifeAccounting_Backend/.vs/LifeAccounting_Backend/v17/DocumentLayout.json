@@ -38,8 +38,7 @@
               "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Currency\\ExchangeRateService.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAAwDIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-06T00:34:16.849Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-06T00:34:16.849Z"
             },
             {
               "$type": "Document",
@@ -51,8 +50,7 @@
               "RelativeToolTip": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAIwCgAAABzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-05T07:26:55.058Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-05T07:26:55.058Z"
             },
             {
               "$type": "Document",
@@ -62,7 +60,7 @@
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
               "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
               "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAIwEgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAIwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-05T07:02:42.158Z",
               "EditorCaption": ""
@@ -77,8 +75,7 @@
               "RelativeToolTip": "LifeAccounting_Backend\\Program.cs",
               "ViewState": "AgIAAH4AAAAAAAAAAAAAAJkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-24T05:58:00.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-24T05:58:00.607Z"
             }
           ]
         }
