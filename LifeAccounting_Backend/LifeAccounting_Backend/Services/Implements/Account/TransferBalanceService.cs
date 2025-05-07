@@ -38,14 +38,37 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 return (false, "Insufficient balance.");
             }
 
+            // 帳戶匯率轉換
+            decimal transferAmount = model.Amount;
+            if (fromAccount.Currency != toAccount.Currency)
+            {
+                var rate = await _context.ExchangeRates
+                    .Where(r => r.FromCurrency == fromAccount.Currency && r.ToCurrency == toAccount.Currency)
+                    .FirstOrDefaultAsync();
+
+                if (rate == null)
+                {
+                    return (false, "Exchange rate not found for the specified currency conversion.");
+                }
+                transferAmount = Math.Round(model.Amount * rate.ToPrice, 2, MidpointRounding.AwayFromZero);
+            }
+
             using var transaction = await _context.Database.BeginTransactionAsync();
-            fromAccount.Balance -= model.Amount;
-            toAccount.Balance += model.Amount;
+            try
+            {
+                fromAccount.Balance -= model.Amount;
+                toAccount.Balance += transferAmount;
 
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-            return (true, "Balance transfer success.");
+                return (true, "Balance transfer success.");
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return (false, $"Transfer failed: {ex.Message}");
+            }
         }
     }
 }

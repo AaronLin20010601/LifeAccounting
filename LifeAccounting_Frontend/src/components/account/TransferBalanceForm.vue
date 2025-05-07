@@ -6,7 +6,7 @@
             <select v-model="form.fromAccountId" id="fromAccountId" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md">
                 <option disabled value="">Select source account</option>
                 <option v-for="account in accounts" :key="account.id" :value="account.id">
-                    {{ account.name }} ({{ account.balance }})
+                    {{ account.name }}
                 </option>
             </select>
         </div>
@@ -17,7 +17,7 @@
             <select v-model="form.toAccountId" id="toAccountId" required class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md">
                 <option disabled value="">Select destination account</option>
                 <option v-for="account in accounts" :key="account.id" :value="account.id">
-                    {{ account.name }} ({{ account.balance }})
+                    {{ account.name }}
                 </option>
             </select>
         </div>
@@ -66,7 +66,6 @@ export default {
         try {
             const meta = await fetchMeta();
             this.accounts = meta.accounts;
-            this.categories = meta.categories;
         } catch (error) {
             this.errorMessage = errorService.handleError(error) || 'Failed to load meta data.';
         }

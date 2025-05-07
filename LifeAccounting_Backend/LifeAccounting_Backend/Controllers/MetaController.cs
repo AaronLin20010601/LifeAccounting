@@ -18,7 +18,7 @@ namespace LifeAccounting_Backend.Controllers
         // 取得登入使用者的帳戶和收支紀錄選單
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetMetaData([FromQuery] string toCurrency = "TWD")
+        public async Task<IActionResult> GetMetaData([FromQuery] string? toCurrency = "TWD")
         {
             // 確保有登入的用戶
             var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0");

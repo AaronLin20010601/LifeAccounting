@@ -2,6 +2,7 @@
 using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Meta;
 using LifeAccounting_Backend.Services.Interfaces.Meta;
+using LifeAccounting_Backend.Models.Entities;
 
 namespace LifeAccounting_Backend.Services.Implements.Meta
 {
