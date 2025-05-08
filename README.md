@@ -16,6 +16,7 @@ PostgreSQL on cloud database Supabase
 - Mailjet:For mail sending
 - JwtBearer:For JWT token verification
 - Npgsql:For connection with PorstgreSQL
+- ClosedXML:For excel export
   
 ### Vue Frontend:
 - Tailwindcss:For css styling
@@ -43,6 +44,9 @@ PostgreSQL on cloud database Supabase
   
 - ResetToken:Tokens using on register and reset password.
   - Columns:Id, Token, Email, CreatedAt, ExpirationDate, IsUsed.
+  
+- ExchangeRate:Currencies exchange rates.
+  - Columns:Id, FromCurrency, ToCurrency, ToPrize, UpdatedAt.
 
 -----
 ## Technical Architecture & Design
