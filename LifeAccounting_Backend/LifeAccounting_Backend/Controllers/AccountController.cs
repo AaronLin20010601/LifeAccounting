@@ -109,7 +109,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _getEditAccountService.GetEditAccountAsync(userId, id);
-            return result.Success ? Ok(result.Data) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Data) : BadRequest(new { Message = result.Message });
         }
 
         // 編輯帳戶
@@ -130,7 +130,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _editAccountService.EditAccountAsync(userId, id, model);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
 
         // 刪除帳戶
@@ -151,7 +151,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _deleteAccountService.DeleteAccountAsync(userId, id);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
     }
 }

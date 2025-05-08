@@ -4,6 +4,6 @@ namespace LifeAccounting_Backend.Services.Interfaces.Account
 {
     public interface IEditAccountService
     {
-        Task<(bool Success, bool Forbidden, string Message)> EditAccountAsync(int userId, int accountId, AccountEditDTO model);
+        Task<(bool Success, string Message)> EditAccountAsync(int userId, int accountId, AccountEditDTO model);
     }
 }

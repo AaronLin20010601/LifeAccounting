@@ -16,6 +16,11 @@ namespace LifeAccounting_Backend.Services.Implements.Account
         // 建立新的帳戶
         public async Task<(bool Success, string Message)> CreateAccountAsync(int userId, AccountEditDTO model)
         {
+            if (string.IsNullOrWhiteSpace(model.Name) || string.IsNullOrWhiteSpace(model.Currency) || model.Balance < 0)
+            {
+                return (false, "Invalid account data.");
+            }
+
             // 建立帳戶
             var account = new Models.Entities.Account
             {
@@ -26,9 +31,16 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 CreatedAt = DateTime.UtcNow
             };
 
-            _context.Accounts.Add(account);
-            await _context.SaveChangesAsync();
-            return (true, "Account created successfully!");
+            try
+            {
+                _context.Accounts.Add(account);
+                await _context.SaveChangesAsync();
+                return (true, "Account created successfully!");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to create account: {ex.Message}");
+            }
         }
     }
 }

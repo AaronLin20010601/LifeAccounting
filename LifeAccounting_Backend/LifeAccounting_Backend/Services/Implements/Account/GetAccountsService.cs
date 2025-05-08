@@ -17,19 +17,18 @@ namespace LifeAccounting_Backend.Services.Implements.Account
         // 取得使用者帳戶資料
         public async Task<object> GetAccountsAsync(int userId)
         {
-            var query = _context.Accounts.Where(a => a.UserId == userId);
-
-            var accounts = await query.OrderByDescending(a => a.CreatedAt).ToListAsync();
-
             // 回傳帳戶列表
-            var accountModels = accounts.Select(a => new AccountDTO
+            var accountModels = await _context.Accounts
+                .Where(a => a.UserId == userId)
+                .OrderByDescending(a => a.CreatedAt)
+                .Select(a => new AccountDTO
             {
                 Id = a.Id,
                 Name = a.Name,
                 Currency = a.Currency,
                 Balance = a.Balance,
                 CreatedAt = a.CreatedAt
-            }).ToList();
+            }).ToListAsync();
 
             // 包裝回傳格式
             var result = new { items = accountModels };

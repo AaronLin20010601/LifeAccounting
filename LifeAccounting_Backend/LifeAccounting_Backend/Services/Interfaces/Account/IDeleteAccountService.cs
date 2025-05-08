@@ -2,6 +2,6 @@
 {
     public interface IDeleteAccountService
     {
-        Task<(bool Success, bool Forbidden, string Message)> DeleteAccountAsync(int userId, int accountId);
+        Task<(bool Success, string Message)> DeleteAccountAsync(int userId, int accountId);
     }
 }

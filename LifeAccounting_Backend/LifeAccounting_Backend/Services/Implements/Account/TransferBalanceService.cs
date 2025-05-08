@@ -17,8 +17,10 @@ namespace LifeAccounting_Backend.Services.Implements.Account
         // 帳戶餘額轉移
         public async Task<(bool Success, string Message)> TransferBalanceAsync(int userId, TransferDTO model)
         {
-            var fromAccount = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == model.FromAccountId);
-            var toAccount = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == model.ToAccountId);
+            var accounts = await _context.Accounts.Where(a => a.Id == model.FromAccountId || a.Id == model.ToAccountId).ToListAsync();
+
+            var fromAccount = accounts.FirstOrDefault(a => a.Id == model.FromAccountId);
+            var toAccount = accounts.FirstOrDefault(a => a.Id == model.ToAccountId);
 
             // 檢查帳號是否存在
             if (fromAccount == null || toAccount == null)
@@ -26,10 +28,16 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 return (false, "Account not found.");
             }
 
+            // 檢查帳戶是否屬於該使用者
+            if (fromAccount.UserId != userId || toAccount.UserId != userId)
+            {
+                return (false, "You are not authorized to access these accounts.");
+            }
+
             // 檢查帳號是否重複
             if (fromAccount.Id == toAccount.Id)
             {
-                return (false, "Connot transfer to the same account.");
+                return (false, "Cannot transfer to the same account.");
             }
 
             // 檢查餘額是否足夠
@@ -44,13 +52,14 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             {
                 var rate = await _context.ExchangeRates
                     .Where(r => r.FromCurrency == fromAccount.Currency && r.ToCurrency == toAccount.Currency)
+                    .Select(r => r.ToPrice)
                     .FirstOrDefaultAsync();
 
-                if (rate == null)
+                if (rate == 0)
                 {
                     return (false, "Exchange rate not found for the specified currency conversion.");
                 }
-                transferAmount = Math.Round(model.Amount * rate.ToPrice, 2, MidpointRounding.AwayFromZero);
+                transferAmount = Math.Round(model.Amount * rate, 2, MidpointRounding.AwayFromZero);
             }
 
             using var transaction = await _context.Database.BeginTransactionAsync();

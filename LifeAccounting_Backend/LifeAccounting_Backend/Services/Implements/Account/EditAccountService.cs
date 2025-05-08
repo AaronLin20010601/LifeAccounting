@@ -15,19 +15,15 @@ namespace LifeAccounting_Backend.Services.Implements.Account
         }
 
         // 編輯帳戶內容
-        public async Task<(bool Success, bool Forbidden, string Message)> EditAccountAsync(int userId, int accountId, AccountEditDTO model)
+        public async Task<(bool Success, string Message)> EditAccountAsync(int userId, int accountId, AccountEditDTO model)
         {
-            // 找出該帳戶
-            var account = await _context.Accounts.FindAsync(accountId);
+            // 找出帳戶
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId && a.UserId == userId);
+
+            // 確認是否為該使用者的帳戶
             if (account == null)
             {
-                return (false, false, "Account not found.");
-            }
-
-            // 驗證是否為該使用者的帳戶
-            if (account.UserId != userId) 
-            {
-                return (false, true, "You are not authorized to edit this account.");
+                return (false, "Account not found or you are not authorized to delete this account.");
             }
 
             // 更新幣別
@@ -40,7 +36,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
 
                 if (exchangeRate == null)
                 {
-                    return (false, false, $"Exchange rate from {account.Currency} to {model.Currency} not found.");
+                    return (false, $"Exchange rate from {account.Currency} to {model.Currency} not found.");
                 }
 
                 decimal rate = exchangeRate.ToPrice;
@@ -48,16 +44,14 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 // 轉換帳戶餘額
                 if (account.Balance == model.Balance) 
                 {
-                    model.Balance = Math.Round(model.Balance * rate, 2);
+                    model.Balance = Math.Round(account.Balance * rate, 2);
                 }
 
                 // 轉換所有該帳戶的收支紀錄金額
-                var records = await _context.Records.Where(r => r.AccountId == accountId).ToListAsync();
-
-                foreach (var record in records)
-                {
-                    record.Amount = Math.Round(record.Amount * rate, 2);
-                }
+                await _context.Records
+                    .Where(r => r.AccountId == accountId)
+                    .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(r => r.Amount, r => Math.Round(r.Amount * rate, 2)));
             }
 
             // 更新資料
@@ -65,8 +59,15 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             account.Currency = model.Currency;
             account.Balance = model.Balance;
 
-            await _context.SaveChangesAsync();
-            return (true, false, "Account updated successfully.");
+            try
+            {
+                await _context.SaveChangesAsync();
+                return (true, "Account updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to update account: {ex.Message}");
+            }
         }
     }
 }

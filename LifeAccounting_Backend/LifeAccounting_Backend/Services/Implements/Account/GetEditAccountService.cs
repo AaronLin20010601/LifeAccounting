@@ -1,6 +1,7 @@
 ﻿using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Account;
 using LifeAccounting_Backend.Services.Interfaces.Account;
+using Microsoft.EntityFrameworkCore;
 
 namespace LifeAccounting_Backend.Services.Implements.Account
 {
@@ -13,19 +14,15 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             _context = context;
         }
 
-        public async Task<(bool Success, bool Forbidden, string Message, AccountEditDTO? Data)> GetEditAccountAsync(int userId, int accountId)
+        public async Task<(bool Success, string Message, AccountEditDTO? Data)> GetEditAccountAsync(int userId, int accountId)
         {
-            // 找出該帳戶
-            var account = await _context.Accounts.FindAsync(accountId);
+            // 找出帳戶
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId && a.UserId == userId);
+
+            // 確認是否為該使用者的帳戶
             if (account == null)
             {
-                return (false,  false, "Account not found.", null);
-            }
-
-            // 驗證是否為該使用者的帳戶
-            if (account.UserId != userId) 
-            {
-                return (false, true, "You are not authorized to view this account.", null);
+                return (false, "Account not found or you are not authorized to delete this account.", null);
             }
 
             // 將該帳戶轉換成可編輯的資料模型
@@ -36,7 +33,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 Balance = account.Balance,
             };
 
-            return (true, false, "Success",  editAccountModel);
+            return (true, "Success",  editAccountModel);
         }
     }
 }
