@@ -1,6 +1,7 @@
 ﻿using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Record;
 using LifeAccounting_Backend.Services.Interfaces.Record;
+using Microsoft.EntityFrameworkCore;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {
@@ -13,19 +14,15 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             _context = context;
         }
 
-        public async Task<(bool Success, bool Forbidden, string Message, RecordEditDTO? Data)> GetEditRecordAsync(int userId, int recordId)
+        public async Task<(bool Success, string Message, RecordEditDTO? Data)> GetEditRecordAsync(int userId, int recordId)
         {
-            // 找出該收支紀錄
-            var record = await _context.Records.FindAsync(recordId);
+            // 找出收支紀錄
+            var record = await _context.Records.FirstOrDefaultAsync(a => a.Id == recordId && a.UserId == userId);
+
+            // 確認是否為該使用者的收支紀錄
             if (record == null)
             {
-                return (false, false, "Record not found.", null);
-            }
-
-            // 驗證是否為該使用者的收支紀錄
-            if (record.UserId != userId)
-            {
-                return (false, true, "You are not authorized to view this record.", null);
+                return (false, "Record not found or you are not authorized to delete this record.", null);
             }
 
             // 將該帳戶轉換成可編輯的資料模型
@@ -39,7 +36,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 Type = record.Type
             };
 
-            return (true, false, "Success", editRecordModel);
+            return (true, "Success", editRecordModel);
         }
     }
 }

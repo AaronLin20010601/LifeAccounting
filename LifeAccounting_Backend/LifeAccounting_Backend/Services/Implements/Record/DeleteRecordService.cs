@@ -1,5 +1,6 @@
 ﻿using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Services.Interfaces.Record;
+using Microsoft.EntityFrameworkCore;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {
@@ -12,25 +13,21 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             _context = context;
         }
 
-        public async Task<(bool Success, bool Forbidden, string Message)> DeleteRecordAsync(int userId, int recordId)
+        public async Task<(bool Success, string Message)> DeleteRecordAsync(int userId, int recordId)
         {
-            // 找出該收支紀錄
-            var record = await _context.Records.FindAsync(recordId);
+            // 找出收支紀錄
+            var record = await _context.Records.FirstOrDefaultAsync(a => a.Id == recordId && a.UserId == userId);
+
+            // 確認是否為該使用者的收支紀錄
             if (record == null)
             {
-                return (false, false, "Record not found.");
-            }
-
-            // 驗證是否為該使用者的收支紀錄
-            if (record.UserId != userId)
-            {
-                return (false, true, "You are not authorized to view this record.");
+                return (false, "Record not found or you are not authorized to delete this record.");
             }
 
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {
-                return (false, false, "User not found.");
+                return (false, "User not found.");
             }
 
             // 同步更新帳戶餘額
@@ -39,7 +36,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 var account = await _context.Accounts.FindAsync(record.AccountId);
                 if (account == null)
                 {
-                    return (false, false, "Account not found.");
+                    return (false, "Account not found.");
                 }
 
                 if (record.Type == "Expense")
@@ -52,13 +49,20 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 }
                 else
                 {
-                    return (false, false, "Insufficient balance.");
+                    return (false, "Insufficient balance.");
                 }
             }
 
-            _context.Records.Remove(record);
-            await _context.SaveChangesAsync();
-            return (true, false, "Record deleted successfully.");
+            try
+            {
+                _context.Records.Remove(record);
+                await _context.SaveChangesAsync();
+                return (true, "Record deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to delete record: {ex.Message}");
+            }
         }
     }
 }

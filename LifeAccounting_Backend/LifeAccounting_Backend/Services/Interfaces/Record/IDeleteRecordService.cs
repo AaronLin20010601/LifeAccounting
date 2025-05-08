@@ -2,6 +2,6 @@
 {
     public interface IDeleteRecordService
     {
-        Task<(bool Success, bool Forbidden, string Message)> DeleteRecordAsync(int userId, int recordId);
+        Task<(bool Success, string Message)> DeleteRecordAsync(int userId, int recordId);
     }
 }

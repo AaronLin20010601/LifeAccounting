@@ -87,7 +87,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _getEditRecordService.GetEditRecordAsync(userId, id);
-            return result.Success ? Ok(result.Data) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Data) : BadRequest(new { Message = result.Message });
         }
 
         // 編輯收支紀錄
@@ -108,7 +108,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _editRecordService.EditRecordAsync(userId, id, model);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
 
         // 刪除收支紀錄
@@ -129,7 +129,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _deleteRecordService.DeleteRecordAsync(userId, id);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
     }
 }

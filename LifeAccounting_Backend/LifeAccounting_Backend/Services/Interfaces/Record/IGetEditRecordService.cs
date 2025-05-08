@@ -4,6 +4,6 @@ namespace LifeAccounting_Backend.Services.Interfaces.Record
 {
     public interface IGetEditRecordService
     {
-        Task<(bool Success, bool Forbidden, string Message, RecordEditDTO? Data)> GetEditRecordAsync(int userId, int recordId);
+        Task<(bool Success, string Message, RecordEditDTO? Data)> GetEditRecordAsync(int userId, int recordId);
     }
 }

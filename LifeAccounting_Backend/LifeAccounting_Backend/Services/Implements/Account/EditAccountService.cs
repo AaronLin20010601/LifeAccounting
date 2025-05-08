@@ -32,26 +32,25 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 // 取得並檢查匯率
                 var exchangeRate = await _context.ExchangeRates
                     .Where(r => r.FromCurrency == account.Currency && r.ToCurrency == model.Currency)
+                    .Select(r => r.ToPrice)
                     .FirstOrDefaultAsync();
 
-                if (exchangeRate == null)
+                if (exchangeRate == 0)
                 {
                     return (false, $"Exchange rate from {account.Currency} to {model.Currency} not found.");
                 }
 
-                decimal rate = exchangeRate.ToPrice;
-
                 // 轉換帳戶餘額
                 if (account.Balance == model.Balance) 
                 {
-                    model.Balance = Math.Round(account.Balance * rate, 2);
+                    model.Balance = Math.Round(account.Balance * exchangeRate, 2);
                 }
 
                 // 轉換所有該帳戶的收支紀錄金額
                 await _context.Records
                     .Where(r => r.AccountId == accountId)
                     .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(r => r.Amount, r => Math.Round(r.Amount * rate, 2)));
+                    .SetProperty(r => r.Amount, r => Math.Round(r.Amount * exchangeRate, 2)));
             }
 
             // 更新資料

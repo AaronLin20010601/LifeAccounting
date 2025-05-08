@@ -48,10 +48,23 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 .OrderByDescending(r => r.Date)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Select(r => new
+                {
+                    r.Id,
+                    r.AccountId,
+                    AccountName = r.Account.Name,
+                    AccountCurrency = r.Account.Currency,
+                    r.CategoryId,
+                    CategoryName = r.Category != null ? r.Category.Name : null,
+                    r.Amount,
+                    r.Note,
+                    r.Date,
+                    r.Type
+                })
                 .ToListAsync();
 
             // 匯率表
-            Dictionary<string, decimal> exchangeRates = null;
+            var exchangeRates = new Dictionary<string, decimal>();
             if (!string.IsNullOrEmpty(toCurrency))
             {
                 exchangeRates = await _context.ExchangeRates
@@ -64,9 +77,8 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             {
                 // 檢查是否依匯率調整
                 decimal convertedAmount = r.Amount;
-                var fromCurrency = r.Account.Currency;
 
-                if (!string.IsNullOrEmpty(toCurrency) && fromCurrency != toCurrency && exchangeRates?.TryGetValue(fromCurrency, out var rate) == true)
+                if (!string.IsNullOrEmpty(toCurrency) && r.AccountCurrency != toCurrency && exchangeRates.TryGetValue(r.AccountCurrency, out var rate))
                 {
                     convertedAmount = r.Amount * rate;
                 }
@@ -75,9 +87,9 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 {
                     Id = r.Id,
                     AccountId = r.AccountId,
-                    AccountName = r.Account.Name,
+                    AccountName = r.AccountName,
                     CategoryId = r.CategoryId,
-                    CategoryName = r.Category?.Name,
+                    CategoryName = r.CategoryName,
                     Amount = Math.Round(convertedAmount, 2),
                     Note = r.Note,
                     Date = r.Date,

@@ -1,5 +1,6 @@
 ﻿using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Record;
+using LifeAccounting_Backend.Models.Entities;
 using LifeAccounting_Backend.Services.Interfaces.Record;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
@@ -16,19 +17,11 @@ namespace LifeAccounting_Backend.Services.Implements.Record
         // 建立新的收支紀錄
         public async Task<(bool Success, string Message)> CreateRecordAsync(int userId, RecordEditDTO model)
         {
-            
-            // 建立收支紀錄
-            var record = new Models.Entities.Record
+            // 檢查收支類別
+            if (model.Type != "Income" && model.Type != "Expense")
             {
-                UserId = userId,
-                AccountId = model.AccountId,
-                CategoryId = model.CategoryId,
-                Amount = model.Amount,
-                Note = model.Note,
-                Date = model.Date,
-                Type = model.Type,
-                CreatedAt = DateTime.UtcNow
-            };
+                return (false, "Invalid record type. Must be Income or Expense.");
+            }
 
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
@@ -59,9 +52,29 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 }
             }
 
-            _context.Records.Add(record);
-            await _context.SaveChangesAsync();
-            return (true, "Record created successfully!");
+            // 建立收支紀錄
+            var record = new Models.Entities.Record
+            {
+                UserId = userId,
+                AccountId = model.AccountId,
+                CategoryId = model.CategoryId,
+                Amount = model.Amount,
+                Note = model.Note,
+                Date = model.Date,
+                Type = model.Type,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            try
+            {
+                _context.Records.Add(record);
+                await _context.SaveChangesAsync();
+                return (true, "Record created successfully!");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to create record: {ex.Message}");
+            }
         }
     }
 }

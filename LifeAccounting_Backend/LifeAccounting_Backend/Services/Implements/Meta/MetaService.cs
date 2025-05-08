@@ -2,7 +2,6 @@
 using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Meta;
 using LifeAccounting_Backend.Services.Interfaces.Meta;
-using LifeAccounting_Backend.Models.Entities;
 
 namespace LifeAccounting_Backend.Services.Implements.Meta
 {
@@ -20,15 +19,15 @@ namespace LifeAccounting_Backend.Services.Implements.Meta
         {
             var rates = await _context.ExchangeRates
                 .Where(r => r.ToCurrency == toCurrency)
-                .ToListAsync();
+                .ToDictionaryAsync(r => r.FromCurrency, r => r.ToPrice);
 
             var accounts = await _context.Accounts
                 .Where(a => a.UserId == userId)
-                .Select(a => new { a.Id, a.Name, a.Balance, a.Currency }).ToListAsync();
+                .Select(a => new { a.Id, a.Name, a.Balance, a.Currency })
+                .ToListAsync();
 
             var convertedAccounts = accounts.Select(a => {
-                var rate = rates.FirstOrDefault(r => r.FromCurrency == a.Currency);
-                var convertedBalance = (rate != null && rate.ToPrice != 0) ? a.Balance * rate.ToPrice : a.Balance;
+                decimal convertedBalance = a.Currency != toCurrency && rates.TryGetValue(a.Currency, out var rate) ? a.Balance * rate : a.Balance;
                 return new OptionDTO
                 {
                     Id = a.Id,
