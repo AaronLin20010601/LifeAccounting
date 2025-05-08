@@ -16,6 +16,11 @@ namespace LifeAccounting_Backend.Services.Implements.Category
         // 建立新的收支類型
         public async Task<(bool Success, string Message)> CreateCategoryAsync(int userId, CategoryEditDTO model)
         {
+            if (string.IsNullOrWhiteSpace(model.Name) || string.IsNullOrWhiteSpace(model.Type))
+            {
+                return (false, "Invalid category data.");
+            }
+
             // 建立收支類型
             var category = new Models.Entities.Category
             {
@@ -24,9 +29,16 @@ namespace LifeAccounting_Backend.Services.Implements.Category
                 Type = model.Type,
             };
 
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-            return (true, "Category created successfully!");
+            try
+            {
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+                return (true, "Category created successfully!");
+            }
+            catch (Exception ex)
+            {
+                return (false, $"Failed to create category: {ex.Message}");
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using LifeAccounting_Backend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Account;
 using LifeAccounting_Backend.Services.Interfaces.Account;
-using Microsoft.EntityFrameworkCore;
 
 namespace LifeAccounting_Backend.Services.Implements.Account
 {

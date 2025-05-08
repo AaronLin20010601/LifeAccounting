@@ -17,17 +17,15 @@ namespace LifeAccounting_Backend.Services.Implements.Category
         // 取得使用者收支類型資料
         public async Task<object> GetCategoriesAsync(int userId)
         {
-            var query = _context.Categories.Where(c => c.UserId == userId);
-
-            var categories = await query.ToListAsync();
-
             // 回傳帳戶列表
-            var categoryModels = categories.Select(c => new CategoryDTO
+            var categoryModels = await _context.Categories
+                .Where(c => c.UserId == userId)
+                .Select(c => new CategoryDTO
             {
                 Id = c.Id,
                 Name = c.Name,
                 Type = c.Type,
-            }).ToList();
+            }).ToListAsync();
 
             // 包裝回傳格式
             var result = new { items = categoryModels };

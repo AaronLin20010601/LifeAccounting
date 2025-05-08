@@ -2,6 +2,6 @@
 {
     public interface IDeleteCategoryService
     {
-        Task<(bool Success, bool Forbidden, string Message)> DeleteCategoryAsync(int userId, int categoryId);
+        Task<(bool Success, string Message)> DeleteCategoryAsync(int userId, int categoryId);
     }
 }

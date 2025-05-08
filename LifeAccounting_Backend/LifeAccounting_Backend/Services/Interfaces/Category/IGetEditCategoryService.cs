@@ -4,6 +4,6 @@ namespace LifeAccounting_Backend.Services.Interfaces.Category
 {
     public interface IGetEditCategoryService
     {
-        Task<(bool Success, bool Forbidden, string Message, CategoryEditDTO? Data)> GetEditCategoryAsync(int userId, int categoryId);
+        Task<(bool Success, string Message, CategoryEditDTO? Data)> GetEditCategoryAsync(int userId, int categoryId);
     }
 }

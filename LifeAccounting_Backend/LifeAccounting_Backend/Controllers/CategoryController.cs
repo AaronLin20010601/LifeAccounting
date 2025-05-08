@@ -84,7 +84,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _getEditCategoryService.GetEditCategoryAsync(userId, id);
-            return result.Success ? Ok(result.Data) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Data) : BadRequest(new { Message = result.Message });
         }
 
         // 編輯收支類型
@@ -105,7 +105,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _editCategoryService.EditCategoryAsync(userId, id, model);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
 
         // 刪除收支類型
@@ -126,7 +126,7 @@ namespace LifeAccounting_Backend.Controllers
             }
 
             var result = await _deleteCategoryService.DeleteCategoryAsync(userId, id);
-            return result.Success ? Ok(result.Message) : (result.Forbidden ? Forbid(result.Message) : NotFound(new { Message = result.Message }));
+            return result.Success ? Ok(result.Message) : BadRequest(new { Message = result.Message });
         }
     }
 }
