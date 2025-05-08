@@ -2,7 +2,6 @@
 using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Record;
 using LifeAccounting_Backend.Services.Interfaces.Record;
-using DocumentFormat.OpenXml.VariantTypes;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {

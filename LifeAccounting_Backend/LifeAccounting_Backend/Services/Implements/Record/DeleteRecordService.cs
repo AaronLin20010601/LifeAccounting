@@ -1,6 +1,6 @@
-﻿using LifeAccounting_Backend.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Services.Interfaces.Record;
-using Microsoft.EntityFrameworkCore;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {

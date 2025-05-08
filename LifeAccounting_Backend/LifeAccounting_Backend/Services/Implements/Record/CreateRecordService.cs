@@ -1,6 +1,5 @@
 ﻿using LifeAccounting_Backend.Models;
 using LifeAccounting_Backend.Models.DTOs.Record;
-using LifeAccounting_Backend.Models.Entities;
 using LifeAccounting_Backend.Services.Interfaces.Record;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
