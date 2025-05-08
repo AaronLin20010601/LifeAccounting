@@ -16,6 +16,9 @@ LifeAccounting_Backend/
 │   ├── UserController.cs
 │   └── VerificationController.cs
 │
+├── Extensions/
+│   └── ServiceCollectionExtensions.cs
+│
 ├── Models/
 │   ├── DTOs/
 │   │   ├── Account/
