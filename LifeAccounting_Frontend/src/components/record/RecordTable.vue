@@ -75,6 +75,7 @@ export default {
         },
         // 編輯紀錄
         editRecord(record) {
+            this.errorMessage = ''
             this.$router.push(`/editrecord/${record.id}`);
         },
         // 刪除紀錄
@@ -82,6 +83,7 @@ export default {
             try {
                 if (!confirm('Are you sure you want to delete this record?')) return;
                 await deleteRecord(record.id);
+                this.errorMessage = ''
                 this.$emit('reload');
             } catch (error) {
                 this.errorMessage = errorService.handleError(error);

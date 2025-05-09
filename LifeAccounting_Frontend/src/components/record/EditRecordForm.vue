@@ -156,6 +156,7 @@ export default {
             try {
                 await updateRecord(this.recordId, this.record);
                 alert('Record updated successfully!');
+                this.errorMessage = ''
                 this.$emit('success');
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Failed to update record.';

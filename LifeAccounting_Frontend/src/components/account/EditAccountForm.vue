@@ -87,6 +87,7 @@ export default {
                 // 更新成功
                 await updateAccount(this.accountId, this.account)
                 alert('Account updated successfully!')
+                this.errorMessage = ''
                 this.$emit('success')
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'An error occurred while updating account.'

@@ -62,6 +62,7 @@ export default {
                 // 新增成功
                 await createCategory(this.category)
                 alert('Category added successfully!')
+                this.errorMessage = ''
                 this.$emit('success')
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Add category failed.'

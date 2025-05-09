@@ -30,6 +30,7 @@ export default {
             try {
                 const data = await fetchCategories();
                 this.categories = data.items;
+                this.errorMessage = ''
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Error fetching categories';
             }

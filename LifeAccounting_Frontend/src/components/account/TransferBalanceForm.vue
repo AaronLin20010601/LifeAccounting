@@ -75,6 +75,7 @@ export default {
             try {
                 await transferBalance(this.form);
                 alert('Balance transfer successfully!');
+                this.errorMessage = ''
                 this.$emit('success');
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Failed to transfer balance.';

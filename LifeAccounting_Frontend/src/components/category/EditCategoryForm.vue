@@ -75,6 +75,7 @@ export default {
                 // 新增成功
                 await updateCategory(this.categoryId, this.category)
                 alert('Category updated successfully!')
+                this.errorMessage = ''
                 this.$emit('success')
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'An error occurred while updating category.'

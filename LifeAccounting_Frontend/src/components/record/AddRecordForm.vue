@@ -134,6 +134,7 @@ export default {
             try {
                 await createRecord(this.record);
                 alert('Record added successfully!');
+                this.errorMessage = ''
                 this.$emit('success');
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Failed to add record.';

@@ -73,6 +73,7 @@ export default {
                 // 新增成功
                 await createAccount(this.account)
                 alert('Account added successfully!')
+                this.errorMessage = ''
                 this.$emit('success')
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Add account failed.'

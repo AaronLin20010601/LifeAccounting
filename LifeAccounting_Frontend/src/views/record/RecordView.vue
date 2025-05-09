@@ -55,6 +55,7 @@ export default {
 
                 this.totalPages = data.totalPages;
                 this.page = data.currentPage;
+                this.errorMessage = ''
             } catch (error) {
                 this.errorMessage = errorService.handleError(error) || 'Error fetching records'
             }
