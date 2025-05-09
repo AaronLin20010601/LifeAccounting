@@ -108,6 +108,7 @@ LifeAccounting_Backend/
 │   │   │   ├── DeleteRecordService.cs
 │   │   │   ├── EditRecordService.cs
 │   │   │   ├── GetEditRecordService.cs
+│   │   │   ├── GetRecordsForChartService.cs
 │   │   │   └── GetRecordsService.cs
 │   │   │
 │   │   ├── Register/
@@ -167,6 +168,7 @@ LifeAccounting_Backend/
 │       │   ├── IDeleteRecordService.cs
 │       │   ├── IEditRecordService.cs
 │       │   ├── IGetEditRecordService.cs
+│       │   ├── IGetRecordsForChartService.cs
 │       │   └── IGetRecordsService.cs
 │       │
 │       ├── Register/
