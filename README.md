@@ -127,14 +127,18 @@ npm run dev
 5. Category management:
   - Define custom income and expense categories.
   
-6. Excel Export:
+6. Excel export:
   - Download financial records as Excel files for offline analysis or backup.
   
-7. Account Balance Sync:
+7. Account balance sync:
   - If sync is enabled, account balances are automatically updated in real-time with financial record operations.
   
-8. Financial Statistics Charts:
+8. Financial statistics charts:
   - Monthly income and expense trends line chart.
   - Income and expense pie charts by category.
   - Donut charts showing income & expense distribution by account.
   - Category heatmap showing usage frequency across months.
+
+9. Currency exchange rate support:
+  - Fetches exchange rate data from currencyapi.com on application startup if rates are missing or outdated.
+  - Supports multiple currencies (e.g., TWD, USD, JPY) for account management and real-time conversion in statistics and summaries.
