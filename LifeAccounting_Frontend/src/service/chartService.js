@@ -1,5 +1,5 @@
 import Plotly from 'plotly.js-dist-min'
-import { fetchRecords } from '@/api/record';
+import { fetchRecordsForChart } from '@/api/record';
 import { fetchMeta } from '@/api/meta'
 
 // 可選年份
@@ -42,12 +42,10 @@ export async function getMonthlyIncomeExpenseData({ year, accountId, toCurrency 
     const incomeMap = Array(12).fill(0);
     const expenseMap = Array(12).fill(0);
 
-    const response = await fetchRecords({
+    const response = await fetchRecordsForChart({
         accountId,
         startDate,
         endDate,
-        page: 1,
-        pageSize: 1000,
         toCurrency,
     });
 
@@ -77,12 +75,10 @@ export async function getIncomeExpensePieData({ year, month, accountId, currency
     end.setDate(0);
     end.setHours(23, 59, 59, 999);
 
-    const response = await fetchRecords({
+    const response = await fetchRecordsForChart({
         accountId,
         startDate: start,
         endDate: end,
-        page: 1,
-        pageSize: 1000,
         toCurrency: currency,
     });
 
@@ -128,11 +124,9 @@ export async function getAccountDonutData({ year, month, currency }) {
     // 取得帳戶和收支紀錄
     const [meta, response] = await Promise.all([
         fetchMeta({ toCurrency: currency }),
-        fetchRecords({
+        fetchRecordsForChart({
             startDate: start,
             endDate: end,
-            page: 1,
-            pageSize: 1000,
             toCurrency: currency,
         }),
     ])
@@ -182,13 +176,11 @@ export async function drawCategoryHeatmap({ containerRef, selectedYear, selected
     const start = new Date(selectedYear, 0, 1)
     const end = new Date(selectedYear, 11, 31, 23, 59, 59, 999)
 
-    const response = await fetchRecords({
+    const response = await fetchRecordsForChart({
         accountId: selectedAccountId,
         type: selectedType,
         startDate: start,
         endDate: end,
-        page: 1,
-        pageSize: 1000,
         toCurrency: selectedCurrency,
     })
 

@@ -85,6 +85,7 @@ namespace LifeAccounting_Backend.Extensions
 
             // Record Service
             services.AddScoped<IGetRecordsService, GetRecordsService>();
+            services.AddScoped<IGetRecordsForChartService, GetRecordsForChartService>();
             services.AddScoped<ICreateRecordService, CreateRecordService>();
             services.AddScoped<IGetEditRecordService, GetEditRecordService>();
             services.AddScoped<IEditRecordService, EditRecordService>();

@@ -5,17 +5,17 @@ using LifeAccounting_Backend.Services.Interfaces.Record;
 
 namespace LifeAccounting_Backend.Services.Implements.Record
 {
-    public class GetRecordsService : IGetRecordsService
+    public class GetRecordsForChartService : IGetRecordsForChartService
     {
         private readonly LifeAccountingDbContext _context;
 
-        public GetRecordsService(LifeAccountingDbContext context)
+        public GetRecordsForChartService(LifeAccountingDbContext context)
         {
             _context = context;
         }
 
         // 取得使用者收支紀錄
-        public async Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime ? startDate, DateTime? endDate, int page, int pageSize)
+        public async Task<object> GetRecordsForChartAsync(int userId, int? accountId, int? categoryId, string? type, DateTime? startDate, DateTime? endDate, string? toCurrency = null)
         {
             var query = _context.Records.Include(r => r.Account).Include(r => r.Category).Where(r => r.UserId == userId);
 
@@ -38,32 +38,42 @@ namespace LifeAccounting_Backend.Services.Implements.Record
             if (endDate.HasValue)
                 query = query.Where(r => r.Date <= endDate.Value);
 
-            // 取得資料並返回
-            var totalItems = await query.CountAsync();
-            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-
-            // 分頁處理
             var records = await query
-                .OrderByDescending(r => r.Date)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
                 .Select(r => new
                 {
                     r.Id,
                     r.AccountId,
                     AccountName = r.Account.Name,
+                    AccountCurrency = r.Account.Currency,
                     r.CategoryId,
                     CategoryName = r.Category != null ? r.Category.Name : null,
                     r.Amount,
-                    r.Note,
                     r.Date,
                     r.Type
                 })
                 .ToListAsync();
 
-            // 回傳收支紀錄列表
+            // 匯率轉換
+            var exchangeRates = new Dictionary<string, decimal>();
+            if (!string.IsNullOrEmpty(toCurrency))
+            {
+                exchangeRates = await _context.ExchangeRates
+                    .Where(r => r.ToCurrency == toCurrency)
+                    .ToDictionaryAsync(r => r.FromCurrency, r => r.ToPrice);
+            }
+
+            // 回傳轉換後資料
             var recordModels = records.Select(r =>
             {
+                decimal convertedAmount = r.Amount;
+
+                if (!string.IsNullOrEmpty(toCurrency) &&
+                    r.AccountCurrency != toCurrency &&
+                    exchangeRates.TryGetValue(r.AccountCurrency, out var rate))
+                {
+                    convertedAmount = r.Amount * rate;
+                }
+
                 return new RecordDTO
                 {
                     Id = r.Id,
@@ -71,22 +81,14 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                     AccountName = r.AccountName,
                     CategoryId = r.CategoryId,
                     CategoryName = r.CategoryName,
-                    Amount = r.Amount,
-                    Note = r.Note,
+                    Amount = Math.Round(convertedAmount, 2),
                     Date = r.Date,
                     Type = r.Type
                 };
-            }).ToList();
+            });
 
             // 包裝回傳格式
-            var result = new
-            {
-                items = recordModels,
-                currentPage = page,
-                pageSize,
-                totalItems,
-                totalPages
-            };
+            var result = new { items = recordModels };
 
             return result;
         }

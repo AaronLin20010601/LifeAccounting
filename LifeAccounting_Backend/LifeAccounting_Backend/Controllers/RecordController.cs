@@ -10,6 +10,7 @@ namespace LifeAccounting_Backend.Controllers
     public class RecordController : BaseApiController
     {
         private readonly IGetRecordsService _getRecordsService;
+        private readonly IGetRecordsForChartService _getRecordsForChartService;
         private readonly ICreateRecordService _createRecordService;
         private readonly IGetEditRecordService _getEditRecordService;
         private readonly IEditRecordService _editRecordService;
@@ -17,12 +18,14 @@ namespace LifeAccounting_Backend.Controllers
 
         public RecordController(
             IGetRecordsService getRecordsService, 
+            IGetRecordsForChartService getRecordsForChartService,
             ICreateRecordService createRecordService,
             IGetEditRecordService getEditRecordService,
             IEditRecordService editRecordService,
             IDeleteRecordService deleteRecordService)
         {
             _getRecordsService = getRecordsService;
+            _getRecordsForChartService = getRecordsForChartService;
             _createRecordService = createRecordService;
             _getEditRecordService = getEditRecordService;
             _editRecordService = editRecordService;
@@ -34,7 +37,7 @@ namespace LifeAccounting_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRecords(
                 [FromQuery] int? accountId, [FromQuery] int? categoryId, [FromQuery] string? type, 
-                [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? toCurrency = null
+                [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] int page = 1, [FromQuery] int pageSize = 10
             )
         {
             // 確保有登入的用戶
@@ -44,7 +47,26 @@ namespace LifeAccounting_Backend.Controllers
                 return Unauthorized(new { Message = "User is not authenticated." });
             }
 
-            var data = await _getRecordsService.GetRecordsAsync(userId, accountId, categoryId, type, startDate, endDate, page , pageSize, toCurrency);
+            var data = await _getRecordsService.GetRecordsAsync(userId, accountId, categoryId, type, startDate, endDate, page , pageSize);
+            return Ok(data);
+        }
+
+        // 統計圖表取得使用者的收支紀錄
+        [Authorize]
+        [HttpGet("chart")]
+        public async Task<IActionResult> GetRecordsForChart(
+                [FromQuery] int? accountId, [FromQuery] int? categoryId, [FromQuery] string? type, [FromQuery] DateTime? startDate, [FromQuery] DateTime? endDate, [FromQuery] string? toCurrency
+            )
+        {
+            // 確保有登入的用戶
+            var userId = int.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "0");
+            if (userId == 0)
+            {
+                return Unauthorized(new { Message = "User is not authenticated." });
+            }
+
+            var data = await _getRecordsForChartService.GetRecordsForChartAsync(userId, accountId, categoryId, type, startDate, endDate, toCurrency);
+
             return Ok(data);
         }
 

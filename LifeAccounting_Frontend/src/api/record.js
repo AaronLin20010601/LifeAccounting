@@ -43,6 +43,39 @@ export const fetchRecords = async ({accountId = null, categoryId = null, type = 
     return response.data;
 }
 
+// 統計圖表取得收支紀錄列表
+export const fetchRecordsForChart = async ({accountId = null, categoryId = null, type = null, 
+    startDate = null, endDate = null, toCurrency = null}) => {
+    const params = new URLSearchParams();
+
+    if (accountId) {
+        params.append('accountId', accountId);
+    }
+
+    if (categoryId) {
+        params.append('categoryId', categoryId);
+    }
+
+    if (type) {
+        params.append('type', type)
+    }
+
+    if (startDate) {
+        params.append('startDate', new Date(startDate).toISOString());
+    }
+
+    if (endDate) {
+        params.append('endDate', new Date(endDate).toISOString());
+    }
+
+    if (toCurrency) {
+        params.append('toCurrency', toCurrency)
+    }
+
+    const response = await axios.get(`${API_URL}/chart?${params.toString()}`, getAuthHeaders());
+    return response.data;
+}
+
 // 新增收支紀錄
 export const createRecord = async (record) => {
     try {
