@@ -39,9 +39,6 @@ export async function getMonthlyIncomeExpenseData({ year, accountId, toCurrency 
     const startDate = new Date(`${year}-01-01`);
     const endDate = new Date(`${year}-12-31`);
 
-    const incomeMap = Array(12).fill(0);
-    const expenseMap = Array(12).fill(0);
-
     const response = await fetchRecordsForChart({
         accountId,
         startDate,
@@ -50,17 +47,21 @@ export async function getMonthlyIncomeExpenseData({ year, accountId, toCurrency 
     });
 
     // 月收支折線圖
-    for (const record of response.items) {
-        const date = new Date(record.date);
-        const monthIndex = date.getMonth();
+    const { incomeMap, expenseMap } = response.items.reduce((accumulator, record) => {
+        const month = new Date(record.date).getMonth();
         const amount = Math.abs(record.amount);
 
         if (record.type === 'Income') {
-            incomeMap[monthIndex] += amount;
+            accumulator.incomeMap[month] += amount;
         } else if (record.type === 'Expense') {
-            expenseMap[monthIndex] += amount;
+            accumulator.expenseMap[month] += amount;
         }
-    }
+
+        return accumulator;
+    }, {
+        incomeMap: Array(12).fill(0),
+        expenseMap: Array(12).fill(0)
+    });
 
     return [
         { name: 'Income', data: incomeMap },
@@ -82,21 +83,22 @@ export async function getIncomeExpensePieData({ year, month, accountId, currency
         toCurrency: currency,
     });
 
-    const incomeMap = {};
-    const expenseMap = {};
-
     // 收支類別
-    for (const record of response.items) {
+    const { incomeMap, expenseMap } = response.items.reduce((accumulator, record) => {
         const categoryName = record.categoryName || 'Other';
         const amount = Math.abs(record.amount);
 
         if (record.type === 'Income') {
-            incomeMap[categoryName] = (incomeMap[categoryName] || 0) + amount;
+            accumulator.incomeMap[categoryName] = (accumulator.incomeMap[categoryName] || 0) + amount;
+        } else if (record.type === 'Expense') {
+            accumulator.expenseMap[categoryName] = (accumulator.expenseMap[categoryName] || 0) + amount;
         }
-        if (record.type === 'Expense') {
-            expenseMap[categoryName] = (expenseMap[categoryName] || 0) + amount;
-        }
-    }
+
+        return accumulator;
+    }, {
+        incomeMap: {},
+        expenseMap: {}
+    });
 
     // 收入類別
     const incomeLabels = Object.keys(incomeMap);
@@ -138,21 +140,23 @@ export async function getAccountDonutData({ year, month, currency }) {
     const balanceSeries = accounts.map(a => a.balance || 0);
     const balanceColors = generateGrayScaleColors(balanceLabels.length);
   
-    const incomeMap = {}
-    const expenseMap = {}
-  
     // 收支分布
-    for (const record of response.items) {
-        const name = accounts.find(a => a.id === record.accountId)?.name || 'Unknown'
-        const amount = Math.abs(record.amount)
-    
+    const accountIdToName = Object.fromEntries(accounts.map(a => [a.id, a.name]));
+    const { incomeMap, expenseMap } = response.items.reduce((accumulator, record) => {
+        const name = accountIdToName[record.accountId] || 'Unknown';
+        const amount = Math.abs(record.amount);
+
         if (record.type === 'Income') {
-            incomeMap[name] = (incomeMap[name] || 0) + amount
+            accumulator.incomeMap[name] = (accumulator.incomeMap[name] || 0) + amount;
+        } else if (record.type === 'Expense') {
+            accumulator.expenseMap[name] = (accumulator.expenseMap[name] || 0) + amount;
         }
-        if (record.type === 'Expense') {
-            expenseMap[name] = (expenseMap[name] || 0) + amount
-        }
-    }
+
+        return accumulator;
+    }, {
+        incomeMap: {},
+        expenseMap: {}
+    });
     
     // 帳戶收入
     const incomeLabels = Object.keys(incomeMap);
@@ -184,20 +188,21 @@ export async function drawCategoryHeatmap({ containerRef, selectedYear, selected
         toCurrency: selectedCurrency,
     })
 
-    const dataMap = {}
-
     // 收支紀錄
-    for (const record of response.items) {
-        if (record.type !== selectedType) continue
-        const month = new Date(record.date).getMonth()
-        const category = record.categoryName || 'Other'
-        const amount = Math.abs(record.amount)
+    const dataMap = response.items.reduce((map, record) => {
+        if (record.type !== selectedType) return map;
 
-        if (!dataMap[category]) {
-            dataMap[category] = Array(12).fill(0)
+        const month = new Date(record.date).getMonth();
+        const category = record.categoryName || 'Other';
+        const amount = Math.abs(record.amount);
+
+        if (!map[category]) {
+            map[category] = Array(12).fill(0);
         }
-        dataMap[category][month] += amount
-    }
+        map[category][month] += amount;
+
+        return map;
+    }, {});
 
     const categories = Object.keys(dataMap)
     const zData = categories.map(c => dataMap[c])
