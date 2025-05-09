@@ -9,8 +9,9 @@ namespace LifeAccounting_Backend.Models.DTOs.Record
         [Required(ErrorMessage = "Account is required.")]
         public int AccountId { get; set; } // 帳戶編號
         public string AccountName { get; set; }
+        public string? AccountCurrency {  get; set; } // 帳戶幣種
         public int? CategoryId { get; set; } // 類型編號
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
         [Required(ErrorMessage = "Amount is required.")]
         public decimal Amount { get; set; } // 金額
         [StringLength(2000, ErrorMessage = "Note must be shorter than 2000 characters.")]

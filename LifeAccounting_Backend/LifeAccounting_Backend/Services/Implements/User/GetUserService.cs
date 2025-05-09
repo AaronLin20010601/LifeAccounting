@@ -27,9 +27,7 @@ namespace LifeAccounting_Backend.Services.Implements.User
             };
 
             // 包裝回傳格式
-            var result = new { item = userModel };
-
-            return result;
+            return new { item = userModel };
         }
     }
 }

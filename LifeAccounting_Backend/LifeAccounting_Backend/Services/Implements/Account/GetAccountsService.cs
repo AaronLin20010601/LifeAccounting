@@ -31,9 +31,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
             }).ToListAsync();
 
             // 包裝回傳格式
-            var result = new { items = accountModels };
-
-            return result;
+            return new { items = accountModels };
         }
     }
 }

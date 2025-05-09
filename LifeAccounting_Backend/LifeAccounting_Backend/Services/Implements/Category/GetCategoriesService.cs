@@ -28,9 +28,7 @@ namespace LifeAccounting_Backend.Services.Implements.Category
             }).ToListAsync();
 
             // 包裝回傳格式
-            var result = new { items = categoryModels };
-
-            return result;
+            return new { items = categoryModels };
         }
     }
 }

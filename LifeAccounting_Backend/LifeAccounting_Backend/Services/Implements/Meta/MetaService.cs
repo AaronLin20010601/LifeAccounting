@@ -18,10 +18,12 @@ namespace LifeAccounting_Backend.Services.Implements.Meta
         public async Task<(List<OptionDTO> Accounts, List<OptionDTO> Categories)> GetMetaDataAsync(int userId, string? toCurrency)
         {
             var rates = await _context.ExchangeRates
+                .AsNoTracking()
                 .Where(r => r.ToCurrency == toCurrency)
                 .ToDictionaryAsync(r => r.FromCurrency, r => r.ToPrice);
 
             var accounts = await _context.Accounts
+                .AsNoTracking()
                 .Where(a => a.UserId == userId)
                 .Select(a => new { a.Id, a.Name, a.Balance, a.Currency })
                 .ToListAsync();
@@ -37,6 +39,7 @@ namespace LifeAccounting_Backend.Services.Implements.Meta
             }).ToList();
 
             var categories = await _context.Categories
+                .AsNoTracking()
                 .Where(c => c.UserId == userId)
                 .Select(c => new OptionDTO { Id = c.Id, Name = c.Name, Type = c.Type })
                 .ToListAsync();

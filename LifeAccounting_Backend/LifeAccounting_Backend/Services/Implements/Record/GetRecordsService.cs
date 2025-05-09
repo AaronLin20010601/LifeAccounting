@@ -17,7 +17,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
         // 取得使用者收支紀錄
         public async Task<object> GetRecordsAsync(int userId, int? accountId, int? categoryId, string? type, DateTime ? startDate, DateTime? endDate, int page, int pageSize)
         {
-            var query = _context.Records.Include(r => r.Account).Include(r => r.Category).Where(r => r.UserId == userId);
+            var query = _context.Records.AsNoTracking().Where(r => r.UserId == userId);
 
             // 篩選帳戶
             if (accountId.HasValue)
@@ -47,48 +47,29 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 .OrderByDescending(r => r.Date)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
-                .Select(r => new
-                {
-                    r.Id,
-                    r.AccountId,
-                    AccountName = r.Account.Name,
-                    r.CategoryId,
-                    CategoryName = r.Category != null ? r.Category.Name : null,
-                    r.Amount,
-                    r.Note,
-                    r.Date,
-                    r.Type
-                })
-                .ToListAsync();
-
-            // 回傳收支紀錄列表
-            var recordModels = records.Select(r =>
-            {
-                return new RecordDTO
+                .Select(r => new RecordDTO
                 {
                     Id = r.Id,
                     AccountId = r.AccountId,
-                    AccountName = r.AccountName,
+                    AccountName = r.Account.Name,
                     CategoryId = r.CategoryId,
-                    CategoryName = r.CategoryName,
+                    CategoryName = r.Category != null ? r.Category.Name : null,
                     Amount = r.Amount,
                     Note = r.Note,
                     Date = r.Date,
                     Type = r.Type
-                };
-            }).ToList();
+                })
+                .ToListAsync();
 
             // 包裝回傳格式
-            var result = new
+            return new
             {
-                items = recordModels,
+                items = records,
                 currentPage = page,
                 pageSize,
                 totalItems,
                 totalPages
             };
-
-            return result;
         }
     }
 }

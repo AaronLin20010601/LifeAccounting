@@ -59,7 +59,7 @@ namespace LifeAccounting_Backend.Services.Implements.Account
                 {
                     return (false, "Exchange rate not found for the specified currency conversion.");
                 }
-                transferAmount = Math.Round(model.Amount * rate, 2, MidpointRounding.AwayFromZero);
+                transferAmount = Math.Round(model.Amount * rate, 2);
             }
 
             using var transaction = await _context.Database.BeginTransactionAsync();

@@ -17,7 +17,7 @@ namespace LifeAccounting_Backend.Services.Implements.Record
         // 取得使用者收支紀錄
         public async Task<object> GetRecordsForChartAsync(int userId, int? accountId, int? categoryId, string? type, DateTime? startDate, DateTime? endDate, string? toCurrency = null)
         {
-            var query = _context.Records.Include(r => r.Account).Include(r => r.Category).Where(r => r.UserId == userId);
+            var query = _context.Records.AsNoTracking().Where(r => r.UserId == userId);
 
             // 篩選帳戶
             if (accountId.HasValue)
@@ -39,58 +39,40 @@ namespace LifeAccounting_Backend.Services.Implements.Record
                 query = query.Where(r => r.Date <= endDate.Value);
 
             var records = await query
-                .Select(r => new
+                .Select(r => new RecordDTO
                 {
-                    r.Id,
-                    r.AccountId,
+                    Id = r.Id,
+                    AccountId = r.AccountId,
                     AccountName = r.Account.Name,
                     AccountCurrency = r.Account.Currency,
-                    r.CategoryId,
+                    CategoryId = r.CategoryId,
                     CategoryName = r.Category != null ? r.Category.Name : null,
-                    r.Amount,
-                    r.Date,
-                    r.Type
+                    Amount = r.Amount,
+                    Date = r.Date,
+                    Type = r.Type
                 })
                 .ToListAsync();
 
             // 匯率轉換
-            var exchangeRates = new Dictionary<string, decimal>();
             if (!string.IsNullOrEmpty(toCurrency))
             {
-                exchangeRates = await _context.ExchangeRates
-                    .Where(r => r.ToCurrency == toCurrency)
+                var fromCurrencies = records.Select(r => r.AccountCurrency).Distinct().ToList();
+
+                var exchangeRates = await _context.ExchangeRates
+                    .Where(r => r.ToCurrency == toCurrency && fromCurrencies.Contains(r.FromCurrency))
                     .ToDictionaryAsync(r => r.FromCurrency, r => r.ToPrice);
+
+                foreach (var record in records)
+                {
+                    if (record.AccountCurrency != toCurrency && exchangeRates.TryGetValue(record.AccountCurrency, out var rate))
+                    {
+                        record.Amount = Math.Round(record.Amount * rate, 2);
+                    }
+                }
             }
 
-            // 回傳轉換後資料
-            var recordModels = records.Select(r =>
-            {
-                decimal convertedAmount = r.Amount;
-
-                if (!string.IsNullOrEmpty(toCurrency) &&
-                    r.AccountCurrency != toCurrency &&
-                    exchangeRates.TryGetValue(r.AccountCurrency, out var rate))
-                {
-                    convertedAmount = r.Amount * rate;
-                }
-
-                return new RecordDTO
-                {
-                    Id = r.Id,
-                    AccountId = r.AccountId,
-                    AccountName = r.AccountName,
-                    CategoryId = r.CategoryId,
-                    CategoryName = r.CategoryName,
-                    Amount = Math.Round(convertedAmount, 2),
-                    Date = r.Date,
-                    Type = r.Type
-                };
-            });
-
             // 包裝回傳格式
-            var result = new { items = recordModels };
-
-            return result;
+            return new { items = records };
         }
     }
 }

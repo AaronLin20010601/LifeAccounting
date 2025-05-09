@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\record\\getrecordsforchartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\record\\getrecordsforchartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\record\\getrecordsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\record\\getrecordsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\services\\implements\\record\\getrecordsforchartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|solutionrelative:lifeaccounting_backend\\services\\implements\\record\\getrecordsforchartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C56FB3AC-177B-47F8-BF0E-314D7153B23E}|LifeAccounting_Backend\\LifeAccounting_Backend.csproj|c:\\users\\asus\\desktop\\lifeaccounting\\lifeaccounting_backend\\lifeaccounting_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,30 +22,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "GetRecordsForChartService.cs",
               "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsForChartService.cs",
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsForChartService.cs",
               "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsForChartService.cs",
               "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsForChartService.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAIwFgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAIwEIAAABmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-09T00:10:34.294Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GetRecordsService.cs",
               "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
               "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
               "RelativeToolTip": "LifeAccounting_Backend\\Services\\Implements\\Record\\GetRecordsService.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAwD4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAIwDwAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-08T08:21:28.192Z",
               "EditorCaption": ""
@@ -57,18 +53,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RecordController.cs",
-              "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
-              "RelativeDocumentMoniker": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
-              "ToolTip": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Controllers\\RecordController.cs",
-              "RelativeToolTip": "LifeAccounting_Backend\\Controllers\\RecordController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAAwEYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:25:37.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\asus\\Desktop\\LifeAccounting\\LifeAccounting_Backend\\LifeAccounting_Backend\\Program.cs",
               "RelativeDocumentMoniker": "LifeAccounting_Backend\\Program.cs",
