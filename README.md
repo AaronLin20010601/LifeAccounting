@@ -142,3 +142,18 @@ npm run dev
 9. Currency exchange rate support:
   - Fetches exchange rate data from currencyapi.com on application startup if rates are missing or outdated.
   - Supports multiple currencies (e.g., TWD, USD, JPY) for account management and real-time conversion in statistics and summaries.
+
+-----
+## Usage Limitations
+Due to the limitations of free-tier services and API usage quotas, this project is subject to the following usage frequency restrictions:  
+1. All projects combine can only send 6000 emails total per month in Mailjet's free plan.
+2. All projects combine can only use the following content per month in Supabase's free plan:
+  - 5gb egress
+  - 0.5gb database size
+  - 50000 monthly active users
+  - 50000 monthly active third party users
+  - 1gb storage size
+  - 200 realtime concurrent peak connections
+  - 2000000 realtime messages
+  - 50000 edge function invocations
+3. This project can only fetch 300 currency exchange rate pairs per month.
