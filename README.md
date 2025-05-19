@@ -156,4 +156,4 @@ Due to the limitations of free-tier services and API usage quotas, this project 
   - 200 realtime concurrent peak connections
   - 2000000 realtime messages
   - 50000 edge function invocations
-3. This project can only fetch 300 currency exchange rate pairs per month.
+3. This project can only fetch 300 currency exchange rate pairs per month in CurrencyApi.com's free plan.
