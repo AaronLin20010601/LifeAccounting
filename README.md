@@ -12,6 +12,7 @@ PostgreSQL on cloud database Supabase
 -----
 ## Additional packages added
 ### .NET Backend:
+- EntityFrameworkCore:For object-relational mapping (ORM), simplifying database operations and migrations
 - BCrypt:For password hashing
 - Mailjet:For mail sending
 - JwtBearer:For JWT token verification
@@ -20,6 +21,8 @@ PostgreSQL on cloud database Supabase
   
 ### Vue Frontend:
 - Tailwindcss:For css styling
+- PostCSS:For transforming and processing CSS with plugins
+- Autoprefixer:A PostCSS plugin that adds vendor prefixes automatically for better browser compatibility
 - Vuex:For data storage and sync
 - Axios:For api request
 - Apexcharts:For financial charts display
