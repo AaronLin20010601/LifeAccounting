@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '@/views/HomeView.vue' // 引入首頁
 import LoginView from '@/views/LoginView.vue' // 引入登入頁面
 import RegisterView from '../views/RegisterView.vue';  // 引入註冊頁面
 import ResetView from '../views/ResetView.vue'; // 引入重設密碼頁面
@@ -22,7 +23,8 @@ const requireAuth = (to, from, next) => {
 
 // 網頁路徑
 const routes = [
-    { path: '/', name: 'login', component: LoginView },
+    { path: '/', name: 'home', component: HomeView },
+    { path: '/login', name: 'login', component: LoginView },
     { path: '/register', name: 'register', component: RegisterView },
     { path: '/reset', name: 'reset', component: ResetView },
 

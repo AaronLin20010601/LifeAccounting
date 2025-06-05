@@ -8,7 +8,7 @@
             <ul class="flex space-x-4 text-gray-700 font-medium">
                 <!-- 登入 -->
                 <li v-if="!isLoggedIn">
-                    <RouterLink to="/" class="hover:text-indigo-600 transition">Login</RouterLink>
+                    <RouterLink to="/login" class="hover:text-indigo-600 transition">Login</RouterLink>
                 </li>
                 <!-- 註冊 -->
                 <li v-if="!isLoggedIn">
